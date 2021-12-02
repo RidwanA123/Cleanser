@@ -7,7 +7,9 @@ boolean buttonPressed = false;
 void setup(){
  
   frameRate(20);
+  
   size(800,600);
+  createGUI();
   
   //Write the map code here;
   
@@ -20,5 +22,12 @@ void setup(){
 void restart(){
   
  // give the value of the beggining of the code here too m8s
+  
+}
+
+
+
+
+void draw(){
   
 }
