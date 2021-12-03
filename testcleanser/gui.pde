@@ -30,7 +30,7 @@ public void pauseButtonPressed(GButton source, GEvent event) { //_CODE_:pauseBut
   else{
    
     loop();
-    buttonPressed= false;
+    buttonPressed = false;
     pauseButton.setText("Pause");
     
   }
@@ -49,6 +49,10 @@ public void PlasticAmountClick(GSlider source, GEvent event) { //_CODE_:PlasticA
 
 } //_CODE_:PlasticAmount:528106:
 
+public void Amount_They_pick(GSlider source, GEvent event) { //_CODE_:CleanserStorage:536613:
+  println("CleanserStorage - GSlider >> GEvent." + event + " @ " + millis());
+} //_CODE_:CleanserStorage:536613:
+
 
 
 // Create all the GUI controls. 
@@ -58,22 +62,28 @@ public void createGUI(){
   G4P.setGlobalColorScheme(GCScheme.BLUE_SCHEME);
   G4P.setMouseOverEnabled(false);
   surface.setTitle("Sketch Window");
-  window2 = GWindow.getWindow(this, "Window title", 0, 0, 240, 240, JAVA2D);
+  window2 = GWindow.getWindow(this, "Window title", 0, 0, 480, 320, JAVA2D);
   window2.noLoop();
   window2.setActionOnClose(G4P.KEEP_OPEN);
   window2.addDrawHandler(this, "win_draw1");
   pauseButton = new GButton(window2, 2, 5, 80, 30);
   pauseButton.setText("Pause");
   pauseButton.addEventHandler(this, "pauseButtonPressed");
-  Reset = new GButton(window2, 149, 5, 80, 30);
+  Reset = new GButton(window2, 88, 6, 80, 30);
   Reset.setText("Restart");
   Reset.setLocalColorScheme(GCScheme.RED_SCHEME);
   Reset.addEventHandler(this, "ResetButtonPressed");
-  PlasticAmount = new GSlider(window2, 6, 49, 100, 40, 10.0);
+  PlasticAmount = new GSlider(window2, 3, 100, 100, 40, 10.0);
   PlasticAmount.setLimits(60, 20, 100);
   PlasticAmount.setNumberFormat(G4P.INTEGER, 0);
   PlasticAmount.setOpaque(false);
   PlasticAmount.addEventHandler(this, "PlasticAmountClick");
+  CleanserStorage = new GSlider(window2, 3, 54, 100, 40, 10.0);
+  CleanserStorage.setLimits(10.0, 5.0, 20.0);
+  CleanserStorage.setNumberFormat(G4P.DECIMAL, 2);
+  CleanserStorage.setLocalColorScheme(GCScheme.ORANGE_SCHEME);
+  CleanserStorage.setOpaque(false);
+  CleanserStorage.addEventHandler(this, "Amount_They_pick");
   window2.loop();
 }
 
@@ -83,3 +93,4 @@ GWindow window2;
 GButton pauseButton; 
 GButton Reset; 
 GSlider PlasticAmount; 
+GSlider CleanserStorage; 
