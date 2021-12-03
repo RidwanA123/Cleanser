@@ -42,12 +42,13 @@ public void ResetButtonPressed(GButton source, GEvent event) { //_CODE_:Reset:60
 
 } //_CODE_:Reset:608023:
 
-public void PlasticAmountClick(GSlider source, GEvent event) { //_CODE_:PlasticAmount:528106:
+public void dropList1_click1(GDropList source, GEvent event) { //_CODE_:Oceans:845265:
+  println("Oceans - GDropList >> GEvent." + event + " @ " + millis());
+} //_CODE_:Oceans:845265:
 
-  //Polution_Speed = PlasticAmount.getValueF();
-
-
-} //_CODE_:PlasticAmount:528106:
+public void slider1_change1(GSlider source, GEvent event) { //_CODE_:Pullution:515733:
+  println("Pullution - GSlider >> GEvent." + event + " @ " + millis());
+} //_CODE_:Pullution:515733:
 
 
 
@@ -62,18 +63,21 @@ public void createGUI(){
   window2.noLoop();
   window2.setActionOnClose(G4P.KEEP_OPEN);
   window2.addDrawHandler(this, "win_draw1");
-  pauseButton = new GButton(window2, 2, 5, 80, 30);
+  pauseButton = new GButton(window2, 2, 5, 65, 30);
   pauseButton.setText("Pause");
   pauseButton.addEventHandler(this, "pauseButtonPressed");
-  Reset = new GButton(window2, 149, 5, 80, 30);
+  Reset = new GButton(window2, 72, 5, 65, 30);
   Reset.setText("Restart");
   Reset.setLocalColorScheme(GCScheme.RED_SCHEME);
   Reset.addEventHandler(this, "ResetButtonPressed");
-  PlasticAmount = new GSlider(window2, 6, 49, 100, 40, 10.0);
-  PlasticAmount.setLimits(60, 20, 100);
-  PlasticAmount.setNumberFormat(G4P.INTEGER, 0);
-  PlasticAmount.setOpaque(false);
-  PlasticAmount.addEventHandler(this, "PlasticAmountClick");
+  Oceans = new GDropList(window2, 142, 7, 90, 100, 4, 10);
+  Oceans.setItems(loadStrings("list_845265"), 1);
+  Oceans.addEventHandler(this, "dropList1_click1");
+  Pullution = new GSlider(window2, 19, 65, 100, 40, 10.0);
+  Pullution.setLimits(0.5, 0.0, 1.0);
+  Pullution.setNumberFormat(G4P.DECIMAL, 2);
+  Pullution.setOpaque(false);
+  Pullution.addEventHandler(this, "slider1_change1");
   window2.loop();
 }
 
@@ -82,4 +86,5 @@ public void createGUI(){
 GWindow window2;
 GButton pauseButton; 
 GButton Reset; 
-GSlider PlasticAmount; 
+GDropList Oceans; 
+GSlider Pullution; 
