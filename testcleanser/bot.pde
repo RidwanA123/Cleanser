@@ -3,7 +3,7 @@ class bot{
   float speed;
   float efficiency;
   
-  \\constructor
+  //constructor
   void bot(float b, float s, float e){
     this.batteryLife = b;
     this.speed = s;
