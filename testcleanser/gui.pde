@@ -53,6 +53,17 @@ public void Amount_They_pick(GSlider source, GEvent event) { //_CODE_:CleanserSt
   println("CleanserStorage - GSlider >> GEvent." + event + " @ " + millis());
 } //_CODE_:CleanserStorage:536613:
 
+public void textfield1_change1(GTextField source, GEvent event) { //_CODE_:NumberOfCleanser:985657:
+  println("NumberOfCleanser - GTextField >> GEvent." + event + " @ " + millis());
+} //_CODE_:NumberOfCleanser:985657:
+
+public void BatteryEfficiency(GTextField source, GEvent event) { //_CODE_:EfficencyOfBattery:530630:
+
+  
+
+
+} //_CODE_:EfficencyOfBattery:530630:
+
 
 
 // Create all the GUI controls. 
@@ -69,7 +80,7 @@ public void createGUI(){
   pauseButton = new GButton(window2, 2, 5, 80, 30);
   pauseButton.setText("Pause");
   pauseButton.addEventHandler(this, "pauseButtonPressed");
-  Reset = new GButton(window2, 88, 6, 80, 30);
+  Reset = new GButton(window2, 2, 152, 85, 29);
   Reset.setText("Restart");
   Reset.setLocalColorScheme(GCScheme.RED_SCHEME);
   Reset.addEventHandler(this, "ResetButtonPressed");
@@ -84,6 +95,22 @@ public void createGUI(){
   CleanserStorage.setLocalColorScheme(GCScheme.ORANGE_SCHEME);
   CleanserStorage.setOpaque(false);
   CleanserStorage.addEventHandler(this, "Amount_They_pick");
+  NumberOfCleanser = new GTextField(window2, 201, 32, 111, 17, G4P.SCROLLBARS_NONE);
+  NumberOfCleanser.setLocalColorScheme(GCScheme.PURPLE_SCHEME);
+  NumberOfCleanser.setOpaque(true);
+  NumberOfCleanser.addEventHandler(this, "textfield1_change1");
+  label1 = new GLabel(window2, 182, 10, 155, 20);
+  label1.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
+  label1.setText("Number Of Cleansers");
+  label1.setLocalColorScheme(GCScheme.PURPLE_SCHEME);
+  label1.setOpaque(false);
+  BatteryLevel = new GLabel(window2, 204, 67, 90, 20);
+  BatteryLevel.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
+  BatteryLevel.setText("Battery Quality");
+  BatteryLevel.setOpaque(false);
+  EfficencyOfBattery = new GTextField(window2, 191, 89, 120, 15, G4P.SCROLLBARS_NONE);
+  EfficencyOfBattery.setOpaque(true);
+  EfficencyOfBattery.addEventHandler(this, "BatteryEfficiency");
   window2.loop();
 }
 
@@ -94,3 +121,7 @@ GButton pauseButton;
 GButton Reset; 
 GSlider PlasticAmount; 
 GSlider CleanserStorage; 
+GTextField NumberOfCleanser; 
+GLabel label1; 
+GLabel BatteryLevel; 
+GTextField EfficencyOfBattery; 
