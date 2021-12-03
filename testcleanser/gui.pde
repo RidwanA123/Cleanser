@@ -12,8 +12,7 @@
  
  * Do not rename this tab!
  * =========================================================
- Don't worry, Im not gonna rename this GUI tab*/
- 
+ */
 
 synchronized public void win_draw1(PApplet appc, GWinData data) { //_CODE_:window2:307537:
   appc.background(230);
@@ -44,7 +43,10 @@ public void ResetButtonPressed(GButton source, GEvent event) { //_CODE_:Reset:60
 } //_CODE_:Reset:608023:
 
 public void PlasticAmountClick(GSlider source, GEvent event) { //_CODE_:PlasticAmount:528106:
-  Polution_Speed = PlasticAmount.getValueF();
+
+  //Polution_Speed = PlasticAmount.getValueF();
+
+
 } //_CODE_:PlasticAmount:528106:
 
 
