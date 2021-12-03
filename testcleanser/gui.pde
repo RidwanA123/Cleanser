@@ -12,7 +12,7 @@
  
  * Do not rename this tab!
  * =========================================================
- Don't worry, Im not gonna rename this tab*/
+ Don't worry, Im not gonna rename this GUI tab*/
  
 
 synchronized public void win_draw1(PApplet appc, GWinData data) { //_CODE_:window2:307537:
