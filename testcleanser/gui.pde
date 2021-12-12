@@ -69,6 +69,10 @@ public void slider1_change2(GSlider source, GEvent event) { //_CODE_:Efficiency:
   println("Efficiency - GSlider >> GEvent." + event + " @ " + millis());
 } //_CODE_:Efficiency:809885:
 
+public void imgButton1_click1(GImageButton source, GEvent event) { //_CODE_:imgButton1:352440:
+  println("imgButton1 - GImageButton >> GEvent." + event + " @ " + millis());
+} //_CODE_:imgButton1:352440:
+
 
 
 // Create all the GUI controls. 
@@ -78,7 +82,7 @@ public void createGUI(){
   G4P.setGlobalColorScheme(GCScheme.BLUE_SCHEME);
   G4P.setMouseOverEnabled(false);
   surface.setTitle("Sketch Window");
-  window2 = GWindow.getWindow(this, "Window title", 0, 0, 300, 320, JAVA2D);
+  window2 = GWindow.getWindow(this, "Window title", 0, 0, 255, 320, JAVA2D);
   window2.noLoop();
   window2.setActionOnClose(G4P.KEEP_OPEN);
   window2.addDrawHandler(this, "win_draw1");
@@ -100,11 +104,13 @@ public void createGUI(){
   CleanserStorage.setLocalColorScheme(GCScheme.ORANGE_SCHEME);
   CleanserStorage.setOpaque(false);
   CleanserStorage.addEventHandler(this, "Amount_They_pick");
-  NumberOfCleanser = new GTextField(window2, 135, 177, 111, 17, G4P.SCROLLBARS_NONE);
+  NumberOfCleanser = new GTextField(window2, 134, 177, 111, 17, G4P.SCROLLBARS_NONE);
+  NumberOfCleanser.setText("0");
+  NumberOfCleanser.setPromptText("0");
   NumberOfCleanser.setLocalColorScheme(GCScheme.PURPLE_SCHEME);
   NumberOfCleanser.setOpaque(true);
   NumberOfCleanser.addEventHandler(this, "textfield1_change1");
-  label1 = new GLabel(window2, 111, 161, 155, 20);
+  label1 = new GLabel(window2, 113, 162, 155, 20);
   label1.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
   label1.setText("Number Of Cleansers");
   label1.setLocalColorScheme(GCScheme.PURPLE_SCHEME);
@@ -129,7 +135,7 @@ public void createGUI(){
   label3.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
   label3.setText("Plastic Amountl");
   label3.setOpaque(false);
-  Oceans = new GDropList(window2, 128, 56, 90, 100, 4, 10);
+  Oceans = new GDropList(window2, 145, 58, 90, 100, 4, 10);
   Oceans.setItems(loadStrings("list_849723"), 0);
   Oceans.addEventHandler(this, "dropList1_click1");
   Efficiency = new GSlider(window2, 5, 183, 100, 40, 10.0);
@@ -143,6 +149,8 @@ public void createGUI(){
   label4.setText("Efficiency");
   label4.setLocalColorScheme(GCScheme.YELLOW_SCHEME);
   label4.setOpaque(false);
+  imgButton1 = new GImageButton(window2, 72, 238, 100, 60, new String[] { "", "", "" } );
+  imgButton1.addEventHandler(this, "imgButton1_click1");
   window2.loop();
 }
 
@@ -162,3 +170,4 @@ GLabel label3;
 GDropList Oceans; 
 GSlider Efficiency; 
 GLabel label4; 
+GImageButton imgButton1; 
