@@ -57,12 +57,17 @@ public void textfield1_change1(GTextField source, GEvent event) { //_CODE_:Numbe
   println("NumberOfCleanser - GTextField >> GEvent." + event + " @ " + millis());
 } //_CODE_:NumberOfCleanser:985657:
 
-public void BatteryEfficiency(GTextField source, GEvent event) { //_CODE_:EfficencyOfBattery:530630:
+public void slider1_change1(GSlider source, GEvent event) { //_CODE_:BatteryQuality:496630:
+  println("BatteryQuality - GSlider >> GEvent." + event + " @ " + millis());
+} //_CODE_:BatteryQuality:496630:
 
-  
+public void dropList1_click1(GDropList source, GEvent event) { //_CODE_:Oceans:849723:
+  println("Oceans - GDropList >> GEvent." + event + " @ " + millis());
+} //_CODE_:Oceans:849723:
 
-
-} //_CODE_:EfficencyOfBattery:530630:
+public void slider1_change2(GSlider source, GEvent event) { //_CODE_:Efficiency:809885:
+  println("Efficiency - GSlider >> GEvent." + event + " @ " + millis());
+} //_CODE_:Efficiency:809885:
 
 
 
@@ -73,14 +78,14 @@ public void createGUI(){
   G4P.setGlobalColorScheme(GCScheme.BLUE_SCHEME);
   G4P.setMouseOverEnabled(false);
   surface.setTitle("Sketch Window");
-  window2 = GWindow.getWindow(this, "Window title", 0, 0, 480, 320, JAVA2D);
+  window2 = GWindow.getWindow(this, "Window title", 0, 0, 300, 320, JAVA2D);
   window2.noLoop();
   window2.setActionOnClose(G4P.KEEP_OPEN);
   window2.addDrawHandler(this, "win_draw1");
   pauseButton = new GButton(window2, 2, 5, 80, 30);
   pauseButton.setText("Pause");
   pauseButton.addEventHandler(this, "pauseButtonPressed");
-  Reset = new GButton(window2, 2, 152, 85, 29);
+  Reset = new GButton(window2, 91, 4, 85, 29);
   Reset.setText("Restart");
   Reset.setLocalColorScheme(GCScheme.RED_SCHEME);
   Reset.addEventHandler(this, "ResetButtonPressed");
@@ -95,22 +100,49 @@ public void createGUI(){
   CleanserStorage.setLocalColorScheme(GCScheme.ORANGE_SCHEME);
   CleanserStorage.setOpaque(false);
   CleanserStorage.addEventHandler(this, "Amount_They_pick");
-  NumberOfCleanser = new GTextField(window2, 201, 32, 111, 17, G4P.SCROLLBARS_NONE);
+  NumberOfCleanser = new GTextField(window2, 135, 177, 111, 17, G4P.SCROLLBARS_NONE);
   NumberOfCleanser.setLocalColorScheme(GCScheme.PURPLE_SCHEME);
   NumberOfCleanser.setOpaque(true);
   NumberOfCleanser.addEventHandler(this, "textfield1_change1");
-  label1 = new GLabel(window2, 182, 10, 155, 20);
+  label1 = new GLabel(window2, 111, 161, 155, 20);
   label1.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
   label1.setText("Number Of Cleansers");
   label1.setLocalColorScheme(GCScheme.PURPLE_SCHEME);
   label1.setOpaque(false);
-  BatteryLevel = new GLabel(window2, 204, 67, 90, 20);
+  BatteryLevel = new GLabel(window2, 7, 139, 90, 20);
   BatteryLevel.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
   BatteryLevel.setText("Battery Quality");
+  BatteryLevel.setLocalColorScheme(GCScheme.GREEN_SCHEME);
   BatteryLevel.setOpaque(false);
-  EfficencyOfBattery = new GTextField(window2, 191, 89, 120, 15, G4P.SCROLLBARS_NONE);
-  EfficencyOfBattery.setOpaque(true);
-  EfficencyOfBattery.addEventHandler(this, "BatteryEfficiency");
+  BatteryQuality = new GSlider(window2, 5, 142, 100, 40, 10.0);
+  BatteryQuality.setLimits(0.5, 0.0, 1.0);
+  BatteryQuality.setNumberFormat(G4P.DECIMAL, 2);
+  BatteryQuality.setLocalColorScheme(GCScheme.GREEN_SCHEME);
+  BatteryQuality.setOpaque(false);
+  BatteryQuality.addEventHandler(this, "slider1_change1");
+  label2 = new GLabel(window2, 2, 47, 97, 20);
+  label2.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
+  label2.setText("Clenser Storage");
+  label2.setLocalColorScheme(GCScheme.ORANGE_SCHEME);
+  label2.setOpaque(false);
+  label3 = new GLabel(window2, 7, 93, 91, 20);
+  label3.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
+  label3.setText("Plastic Amountl");
+  label3.setOpaque(false);
+  Oceans = new GDropList(window2, 128, 56, 90, 100, 4, 10);
+  Oceans.setItems(loadStrings("list_849723"), 0);
+  Oceans.addEventHandler(this, "dropList1_click1");
+  Efficiency = new GSlider(window2, 5, 183, 100, 40, 10.0);
+  Efficiency.setLimits(0.5, 0.0, 1.0);
+  Efficiency.setNumberFormat(G4P.DECIMAL, 2);
+  Efficiency.setLocalColorScheme(GCScheme.YELLOW_SCHEME);
+  Efficiency.setOpaque(false);
+  Efficiency.addEventHandler(this, "slider1_change2");
+  label4 = new GLabel(window2, 11, 180, 80, 20);
+  label4.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
+  label4.setText("Efficiency");
+  label4.setLocalColorScheme(GCScheme.YELLOW_SCHEME);
+  label4.setOpaque(false);
   window2.loop();
 }
 
@@ -124,4 +156,9 @@ GSlider CleanserStorage;
 GTextField NumberOfCleanser; 
 GLabel label1; 
 GLabel BatteryLevel; 
-GTextField EfficencyOfBattery; 
+GSlider BatteryQuality; 
+GLabel label2; 
+GLabel label3; 
+GDropList Oceans; 
+GSlider Efficiency; 
+GLabel label4; 
