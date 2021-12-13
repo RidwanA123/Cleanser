@@ -337,7 +337,7 @@ void getpix() {
       }
     }
   }
-  plantFirstGeneration();
+  plasticGeneration();
   updatePixels();
 }
 
@@ -353,7 +353,7 @@ void coloursetter(int r, int c, int type) {
   }
 }
 
-void plantFirstGeneration() {
+void plasticGeneration() {
 
   for (int i=40; i<70;i++) {
     for (int j=20; j<50;j++){
