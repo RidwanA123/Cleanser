@@ -6,7 +6,7 @@ boolean buttonPressed = false;
 
 
   String name;
-  float pollution;
+  boolean[][] pollution;
 
 
   bot Clenser;
@@ -16,21 +16,13 @@ boolean buttonPressed = false;
  int n = 100;
 float padding = 50;
 float CPS = 10;
-boolean[][] cells, cellsNext, Land, reg, radiation, NATOstate, cleanserbot, NATO;
+boolean[][] cells, cellsNext, Land, reg, cleanserbot,ocean;
 
 int[][] nukestage = new int[n][n];
 
 float cellSize;
-float probofspreadexplosion = 1;
-int radiationlimit = 10; 
-float radiationprobability = 0.9;
-int natoblastradius = 40;
-int comblastradius = 40;
-int natospreadspeed = 30;
-int comspreadspeed = 30;
-int natospeed = 5;    
-int comspeed = 5;
-color[][] NATO3;
+
+
 boolean mswitch = false;
 String misstype;
 color[][] temp;
@@ -59,13 +51,13 @@ void setup() {
 
   image = loadImage("NA.png");
   image(image, -400, 0);
-  NATOstate = new boolean[n][n];
+
   cleanserbot = new boolean[n][n];
-  NATO = new boolean[height][width];
-  radiation = new boolean[n][n];
+ 
+
   ocean = new boolean[height][width];
   Land = new boolean[height][width];
-  NATO3 = new color[n][n];
+  pollution = new boolean[height][width];
   cellscol = new color[n][n];
   cellscolNext = new color[n][n];
   temp = new color[n][n];
@@ -99,7 +91,7 @@ void draw() {
 
         try {     
          
-       
+          
            if ( (Land[int((2*y+cellSize)/2)][int((2*x+cellSize)/2)])|| (Land[int(y)][int(x)]) || (Land[int(y+cellSize)][int(x)]) || (Land[int(y)][int(x+cellSize)]) || (Land[int(y+cellSize)][int(x+cellSize)]) ) {
            
             if (cellscolNext[i][j] == color(255, 165, 0)) {
@@ -151,20 +143,18 @@ void draw() {
               coloursetter(i, j, 1);
              
             }
-          } else {
-           
+          }
+        
+          else {
+            
             if (cellscolNext[i][j] == color(255, 165, 0)) {
               fill(color(255, 165, 0));
              
               rect(x, y, cellSize, cellSize);
             } 
-            else  if (radiation[i][j]) {
-              fill(color(0, 255, 0));
-
-
-
-              rect(x, y, cellSize, cellSize);
-            }
+            
+            
+           
             else if (cellscolNext[i][j] == color(0, 255, 0)) {
               fill(color(0, 255, 0));
 
@@ -178,6 +168,12 @@ void draw() {
               rect(x, y, cellSize, cellSize);
             }
           }
+             if   (pollution[i][j] == true) {
+             fill(color(128,98,90));
+             
+
+              rect(x, y, cellSize, cellSize);
+           }
         }
         catch(Exception e) {
           
@@ -220,14 +216,7 @@ void fireFirstMissile() {
           x = x + 50;
         }
         if (genCount > x && mswitch == true ) {
-          if (NATOstate[i][j] == true) {
-          mswitch = false;
-          cellscol[i][j] = color(255, 165, 0);
-          misstype = "NATO";
-          xSpeeds[i][j] = 1;
-          ySpeeds[i][j] = 1;
-           x = x + 70;
-          }
+    
         }
       }
 }
@@ -266,22 +255,7 @@ void setNextGeneration() {
               ontouched();
               ontouchedd = true;
             }
-          } else if (NATOstate[iNext][jNext] == true && misstype == "Cuba") {
-            println("OK");
-            float x = int(random(1, 5));
-            println("val is", x);
-            if (x == 1) {
-
-              misstype = "";
-              ontouched();
-              ontouchedd = true;
-
-           
-              cellscol[i][j] = color(255, 165, 0);
-              cellscolNext[iNext][jNext] = color(255, 165, 0);
-              temp[i][j] = cellscolNext[i][j];
-              print(temp[i][j]);
-            }
+          
           } else {
           }
         }
@@ -363,6 +337,7 @@ void getpix() {
       }
     }
   }
+  plantFirstGeneration();
   updatePixels();
 }
 
@@ -379,6 +354,18 @@ void coloursetter(int r, int c, int type) {
 }
 
 void plantFirstGeneration() {
+
+  for (int i=40; i<70;i++) {
+    for (int j=20; j<50;j++){
+       float r = random(0,1);
+      
+      if (r<0.3){                         //This is where we need to put in the option to change probability of plastic generation in the GUI
+        
+        pollution[i][j] = true;
+      }
+  }
+  }
+  
   for (int i=0; i<n; i++) 
     for (int j=0; j<n; j++) {
       if (cleanserbot[i][j] == true && mswitch == false) {
@@ -388,6 +375,7 @@ void plantFirstGeneration() {
         xSpeeds[i][j] = 2;
         ySpeeds[i][j] = 2;
       }
+      
     }
 }
 void copyNextGenerationToCurrentGeneration() {
