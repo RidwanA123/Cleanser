@@ -14,11 +14,11 @@ void setup(){
   frameRate(20);
   ocean = new boolean[height][width];
   land = new boolean[height][width];
-  size(800,600);
+  size(1600,800);
   createGUI();
   PImage image;
   image = loadImage("NA.png");
-  image(image, 100, 200);
+  image(image, -100, 0);
   loadPixels();
   getpix();
   
