@@ -47,7 +47,7 @@ PImage image;
 void setup() {
   createGUI();
   xb = 0;
-  size(1100, 700);   
+  size(700, 700);   
   //noStroke();
   frameRate( CPS);
 
@@ -386,4 +386,16 @@ void copyNextGenerationToCurrentGeneration() {
       xSpeeds[i][j] = xSpeedsNext[i][j];
       ySpeeds[i][j] = ySpeedsNext[i][j];
     }
+}
+
+void reset(){
+  cleanserbot = new boolean[n][n];
+ 
+
+  ocean = new boolean[height][width];
+  Land = new boolean[height][width];
+  pollution = new boolean[height][width];
+  cellscol = new color[n][n];
+  cellscolNext = new color[n][n];
+  temp = new color[n][n];
 }

@@ -43,6 +43,7 @@ public void ResetButtonPressed(GButton source, GEvent event) { //_CODE_:Reset:60
 } //_CODE_:Reset:608023:
 
 public void PlasticAmountClick(GSlider source, GEvent event) { //_CODE_:PlasticAmount:528106:
+  reset();
   pollutionChance = PlasticAmount.getValueF();
   //Polution_Speed = PlasticAmount.getValueF();
 
@@ -90,8 +91,8 @@ public void createGUI(){
   Reset.setLocalColorScheme(GCScheme.RED_SCHEME);
   Reset.addEventHandler(this, "ResetButtonPressed");
   PlasticAmount = new GSlider(window2, 3, 100, 100, 40, 10.0);
-  PlasticAmount.setLimits(0.88, 0.01, 0.88);
-  PlasticAmount.setNumberFormat(G4P.DECIMAL, 0);
+  PlasticAmount.setLimits(1, 0, 1);
+  PlasticAmount.setNumberFormat(G4P.INTEGER, 0);
   PlasticAmount.setOpaque(false);
   PlasticAmount.addEventHandler(this, "PlasticAmountClick");
   CleanserStorage = new GSlider(window2, 3, 54, 100, 40, 10.0);
