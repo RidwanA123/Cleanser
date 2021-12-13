@@ -40,7 +40,7 @@ void restart(){
 
 
   void draw() {
-  background(0, 0, 255);    
+  //background(0, 0, 255);    
   float y = padding;
 
   if (true) {
