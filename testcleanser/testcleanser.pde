@@ -47,7 +47,7 @@ PImage image;
 void setup() {
   createGUI();
   xb = 0;
-  size(1100, 800);  
+  size(1100, 700);   
   //noStroke();
   frameRate( CPS);
 
