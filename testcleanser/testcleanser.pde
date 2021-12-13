@@ -2,6 +2,11 @@ import g4p_controls.*;
 
 PImage botpic;
 
+int botNum;
+int plastNum; 
+
+float cellsize;
+
 float pollutionChance;
 
 boolean buttonPressed = false;
@@ -12,7 +17,6 @@ boolean buttonPressed = false;
 
 
   bot Clenser;
-  bot rob;
 
 
 int n = 100;
@@ -44,22 +48,28 @@ color[][] cellscol;
 boolean ontouchedd;
 
 PImage image;  
+
 void setup() {
+  plastNum = round(random(20,50));
+  botNum = round(random(1,3));
   createGUI();
   xb = 0;
-  size(700, 700);   
-  //noStroke();
+  size(1000, 700);   
+  noStroke();
   frameRate( CPS);
 
   image = loadImage("NA.png");
   image(image, -400, 0);
 
   cleanserbot = new boolean[n][n];
- 
+  
+  for (int c = 0; c < botNum; c++){
+  Clenser = new bot(100,100);
+  }
 
   ocean = new boolean[height][width];
   Land = new boolean[height][width];
-  pollution = new boolean[height][width];
+  pollution = new boolean[n][n];
   cellscol = new color[n][n];
   cellscolNext = new color[n][n];
   temp = new color[n][n];
@@ -75,6 +85,7 @@ void setup() {
   cellsNext = new boolean[n][n];
   //setCellValuesRandomly();
   //setCellValuesAlternating();
+  
 }
 
 
@@ -195,9 +206,14 @@ void draw() {
     if (savestate) {
       savestates();
     }
+    
+    
     copyNextGenerationToCurrentGeneration();
      fireFirstMissile();
   
+    Clenser.moveBot();
+    fill(0);
+    rect(64,50,5,5);
   }
 }
 int x = 0;
@@ -354,14 +370,15 @@ void coloursetter(int r, int c, int type) {
     fill(0, 255, 0);
   }
 }
-
+ 
 void plasticGeneration() {
 
   for (int i=40; i<70;i++) {
     for (int j=20; j<50;j++){
        float rand = random(0,1);
-      
-       if (rand<pollutionChance){                         //This is where we need to put in the option to change probability of plastic generation in the GUI 
+       
+       float convert = pollutionChance/100;
+       if (rand<convert){                         //This is where we need to put in the option to change probability of plastic generation in the GUI 
          pollution[i][j] = true;
       }
   }
@@ -392,17 +409,20 @@ void reset(){
   
   image = loadImage("NA.png");
   image(image, -400, 0);
-  
-  cleanserbot = new boolean[n][n];
- 
 
   ocean = new boolean[height][width];
   Land = new boolean[height][width];
-  pollution = new boolean[height][width];
-  cellscol = new color[n][n];
-  cellscolNext = new color[n][n];
-  temp = new color[n][n];
+  pollution = new boolean[n][n];
+
  
  getpix();
  loadPixels();
+}
+
+void removePol(){
+  for(int i = 0; i < n; i++){
+    for(int j = 0; j < n; j++){
+     pollution[i][j] = false;
+    }
+  }
 }
