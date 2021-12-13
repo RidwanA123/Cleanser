@@ -1,5 +1,6 @@
 import g4p_controls.*;
 
+PImage botpic;
 
 boolean buttonPressed = false;
 
@@ -9,6 +10,9 @@ boolean buttonPressed = false;
 
   float padding = 50;
   float  cellSize = (width-2*padding)/n;
+  
+  bot Clenser;
+  bot rob;
 void setup(){
  
   frameRate(20);
@@ -22,9 +26,8 @@ void setup(){
   loadPixels();
   getpix();
   
-  int x = round(random(-10,10));
-  int y = round(random(-10,10));
   
+  Clenser = new bot(100,100);
   
   
   //Write the map code here;
@@ -133,7 +136,7 @@ boolean savestate;
 
 
 
-
+Clenser.moveBot();
 
 
 
