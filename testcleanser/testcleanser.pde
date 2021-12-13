@@ -196,7 +196,7 @@ void draw() {
       savestates();
     }
     copyNextGenerationToCurrentGeneration();
-     fireFirstMissile();
+  
   
   }
 }
@@ -206,22 +206,7 @@ void savestates() {
               
 }
 
-void fireFirstMissile() {
-   for (int i=0; i<n; i++) 
-      for (int j=0; j<n; j++) {
-        if (genCount > x && cleanserbot[i][j] == true && mswitch == false) {
-          mswitch = true;
-          cellscol[i][j] = color(255, 165, 0);
-          misstype = "Cuba";
-          xSpeeds[i][j] = -2;
-          ySpeeds[i][j] = -2;
-          x = x + 50;
-        }
-        if (genCount > x && mswitch == true ) {
-    
-        }
-      }
-}
+
 void setNextGeneration() {
   scrubNext(); 
 
