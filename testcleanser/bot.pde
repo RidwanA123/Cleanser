@@ -11,8 +11,16 @@ class bot{
   //constructor
   bot(float b, float e){
     this.batteryLife = b;
-    this.xpos = round(random(400,600));
-    this.ypos = round(random(400,600));
+    for (int i = 0;i<n;i++){
+      for (int j = 0;j<n;j++) {
+        if (Land[i][j] == true) {
+          this.xpos = i;
+          this.ypos = j;
+        }
+      }
+      
+    }
+    
     this.efficiency = e;
   }
   

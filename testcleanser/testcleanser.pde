@@ -24,16 +24,15 @@ float padding = 50;
 float CPS = 10;
 boolean[][] cells, cellsNext, Land, reg, cleanserbot,ocean;
 
-int[][] nukestage = new int[n][n];
+
 
 float cellSize;
 
 
-boolean mswitch = false;
-String misstype;
+
 color[][] temp;
 int genCount = 0;
-int blastLimit = 4;
+
 boolean state[][];
 
 int xb = 0;
@@ -64,7 +63,7 @@ void setup() {
   cleanserbot = new boolean[n][n];
   
   for (int c = 0; c < botNum; c++){
-  Clenser = new bot(100,100);
+  
   }
 
   ocean = new boolean[height][width];
@@ -75,6 +74,7 @@ void setup() {
   temp = new color[n][n];
   loadPixels();
   getpix();
+
 
 
 
@@ -126,7 +126,7 @@ void draw() {
               fill(104,189,86);
 
               rect(x, y, cellSize, cellSize);
-              coloursetter(i, j, 1);  
+              
 
 
 
@@ -153,7 +153,7 @@ void draw() {
               
               rect(x, y, cellSize, cellSize);
 
-              coloursetter(i, j, 1);
+             
              
             }
           }
@@ -198,7 +198,7 @@ void draw() {
 
 
     genCount++;
-    setNextGeneration();
+   
     if (ontouchedd) {
       ontouched();
     }
@@ -209,11 +209,8 @@ void draw() {
     
     
     copyNextGenerationToCurrentGeneration();
-     fireFirstMissile();
-  
+    
     Clenser.moveBot();
-    fill(0);
-    rect(64,50,5,5);
   }
 }
 int x = 0;
@@ -222,74 +219,7 @@ void savestates() {
               
 }
 
-void fireFirstMissile() {
-   for (int i=0; i<n; i++) 
-      for (int j=0; j<n; j++) {
-        if (genCount > x && cleanserbot[i][j] == true && mswitch == false) {
-          mswitch = true;
-          cellscol[i][j] = color(255, 165, 0);
-          misstype = "Cuba";
-          xSpeeds[i][j] = -2;
-          ySpeeds[i][j] = -2;
-          x = x + 50;
-        }
-        if (genCount > x && mswitch == true ) {
-    
-        }
-      }
-}
-void setNextGeneration() {
-  scrubNext(); 
 
-  for (int i=0; i<n; i++) {
-    for (int j=0; j<n; j++) {
-
-      int sx = xSpeeds[i][j];
-      int sy = ySpeeds[i][j];
-
-
-      if (cellscol[i][j] == color(255, 165, 0)) {
-        try {
-          int iNext = i + sy;
-          int jNext = j + sx;
-          cellscolNext[iNext][jNext] = color(255, 165, 0); 
-          xSpeedsNext[iNext][jNext] = sx;
-          ySpeedsNext[iNext][jNext] = sy;
-
-          // println(genCount);
-
-          cellscolNext[iNext][jNext] = color(255, 165, 0); 
-          xSpeedsNext[iNext][jNext] = sx;
-          ySpeedsNext[iNext][jNext] = sy;
-          if (cleanserbot[iNext][jNext] == true && misstype == "NATO") {
-            float x = int(random(1, 2));
-            if (x == 1) {
-
-              misstype = "";
-              cleanserbot[iNext][jNext] = false;
-              cellscol[i][j] = color(255, 165, 0);
-              cellscolNext[iNext][jNext] = color(255, 165, 0);
-              temp[i][j] = cellscolNext[i][j];
-              ontouched();
-              ontouchedd = true;
-            }
-          
-          } else {
-          }
-        }
-
-
-
-        catch( Exception e) {
-
-
-          xSpeedsNext[i][j] = 0;
-          ySpeedsNext[i][j] = 0;
-        }
-      }
-    }
-  }
-}
 
 
 void secondstate() {
@@ -356,20 +286,13 @@ void getpix() {
     }
   }
   plasticGeneration();
+    Clenser = new bot(100,100);
   updatePixels();
 }
 
 
 
-void coloursetter(int r, int c, int type) {
 
-  if (nukestage[r][c] == 1) {     // Orange 
-    fill(255, 165, 0);
-  }
-  if (type == 1) {
-    fill(0, 255, 0);
-  }
-}
  
 void plasticGeneration() {
 
@@ -384,17 +307,7 @@ void plasticGeneration() {
   }
   }
   
-  for (int i=0; i<n; i++) 
-    for (int j=0; j<n; j++) {
-      if (cleanserbot[i][j] == true && mswitch == false) {
-        mswitch = true;
-        cellscol[i][j] = color(255, 165, 0);
-        misstype = "Cuba";
-        xSpeeds[i][j] = 2;
-        ySpeeds[i][j] = 2;
-      }
-      
-    }
+
 }
 void copyNextGenerationToCurrentGeneration() {
   for (int i=0; i<n; i++) 
@@ -409,11 +322,19 @@ void reset(){
   plastNum = 0;
   botNum = 1;
   
+  for (int i=40; i<70;i++) {
+    for (int j=20; j<50;j++){
+      pollution[i][j] = false;
+    }
+  }
+  plasticGeneration();
   image = loadImage("NA.png");
-  image(image, -400, 0);
+  image(image, -500, -300);
  
  getpix();
  loadPixels();
+ 
+ Clenser = new bot(100,100);
 }
 
 void removePol(){
