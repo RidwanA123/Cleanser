@@ -22,6 +22,11 @@ void setup(){
   loadPixels();
   getpix();
   
+  int x = round(random(-10,10));
+  int y = round(random(-10,10));
+  
+  
+  
   //Write the map code here;
   
   //restart();  Guys remove the commenting part when you finished the void restart below
