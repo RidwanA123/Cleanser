@@ -59,7 +59,7 @@ void setup() {
   frameRate( CPS);
 
   image = loadImage("NA.png");
-  image(image, -400, 0);
+  image(image, -500, -300);
 
   cleanserbot = new boolean[n][n];
   
@@ -406,14 +406,11 @@ void copyNextGenerationToCurrentGeneration() {
 }
 
 void reset(){
+  plastNum = 0;
+  botNum = 1;
   
   image = loadImage("NA.png");
   image(image, -400, 0);
-
-  ocean = new boolean[height][width];
-  Land = new boolean[height][width];
-  pollution = new boolean[n][n];
-
  
  getpix();
  loadPixels();
