@@ -389,6 +389,10 @@ void copyNextGenerationToCurrentGeneration() {
 }
 
 void reset(){
+  
+  image = loadImage("NA.png");
+  image(image, -400, 0);
+  
   cleanserbot = new boolean[n][n];
  
 
@@ -398,4 +402,7 @@ void reset(){
   cellscol = new color[n][n];
   cellscolNext = new color[n][n];
   temp = new color[n][n];
+ 
+ getpix();
+ loadPixels();
 }
