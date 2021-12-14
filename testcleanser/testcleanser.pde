@@ -331,19 +331,20 @@ void loadArcticOcean() {
 }
 void loadPacificOcean() {
   image = loadImage("NA.png");
-    image(image, -100, -200);
+    image(image, -550, -300);
   
 }
 void loadAtlanticOcean() {
   image = loadImage("AtlanticOcean.jpg");
-    image(image, -100, -200);
+    image(image, 300, 0);
+    
   
 }
 void resetLand() {
   for (int i = 0; i <n; i++) {
     for (int j = 0; j<n;j++) {
-       //   float x = padding + j*cellSize;
-       //   float y = padding;
+       //float x = padding + j*cellSize;
+       //float y = padding;
        //fill(color(255, 165, 0));
 
 

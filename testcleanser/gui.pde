@@ -74,7 +74,7 @@ if (index == 1) {
   getpix();
 }
 else if (index == 2) {
-  if (index == 1) {
+
   resetLand();
   removePol();
    pollutionChance = PlasticAmount.getValueF();
@@ -82,13 +82,14 @@ else if (index == 2) {
   getpix();
 }
 else if (index == 3) {
-  if (index == 1) {
+  
   resetLand();
   removePol();
+ 
    pollutionChance = PlasticAmount.getValueF();
   loadAtlanticOcean();
   getpix();
-}
+
 }
 else {
   resetLand();
@@ -97,7 +98,7 @@ else {
   loadPacificOcean();
   getpix();
 }
-}
+
 
 } //_CODE_:Oceans:849723:
 
