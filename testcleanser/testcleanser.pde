@@ -5,6 +5,8 @@ PImage botpic;
 int botNum;
 int plastNum; 
 
+int plastored;
+
 float cellsize;
 
 float pollutionChance;
@@ -49,14 +51,16 @@ boolean ontouchedd;
 PImage image;  
 
 void setup() {
+  
+  plastored = 1;
   plastNum = round(random(20,50));
   botNum = round(random(1,3));
   createGUI();
   xb = 0;
-  size(1000, 700);   
   noStroke();
+  size(1000, 700);   
   frameRate( CPS);
-
+  
   image = loadImage("NA.png");
   image(image, -500, -300);
 
@@ -65,7 +69,7 @@ void setup() {
   for (int c = 0; c < botNum; c++){
   
   }
-
+ 
   ocean = new boolean[height][width];
   Land = new boolean[height][width];
   pollution = new boolean[n][n];
@@ -75,10 +79,6 @@ void setup() {
   loadPixels();
   getpix();
 
-
-
-
-  //noStroke();
 
   cellSize = (width-2*padding)/n;
   cells = new boolean[n][n];
@@ -301,7 +301,7 @@ void plasticGeneration() {
        float rand = random(0,1);
        
        float convert = pollutionChance/100;
-       if (rand<convert){                         //This is where we need to put in the option to change probability of plastic generation in the GUI 
+       if (rand<convert){    //This is where we need to put in the option to change probability of plastic generation in the GUI 
          pollution[i][j] = true;
       }
   }

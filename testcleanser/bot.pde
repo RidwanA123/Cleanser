@@ -3,10 +3,11 @@ int ys = round(random(-10,10));
 
 class bot{
   float batteryLife;
-  int xpos;
-  int ypos;
+  float xpos;
+  float ypos;
   float efficiency;
   PImage img;
+  float batnum;
   
   //constructor
   bot(float b, float e){
@@ -14,17 +15,20 @@ class bot{
     for (int i = 0;i<n;i++){
       for (int j = 0;j<n;j++) {
         if (Land[i][j] == true) {
-          this.xpos = i;
-          this.ypos = j;
+          this.xpos = round(cellsize*i);
+          this.ypos = round(cellsize*j);
         }
       }
       
     }
     
     this.efficiency = e;
+   
+   batnum = 30;
   }
   
   void moveBot(){
+    this.batteryLife();
   
     if (xs > 0 && abs(xs) > abs(ys)){
       botpic = loadImage("clenser right-1.png.png");
@@ -66,13 +70,32 @@ class bot{
 void detectPlastic(){
    for(int i = 0; i < n; i++){
     for(int j = 0; j < n; j++){
-      int ix = round(cellsize + i);
-      int iy = round(cellsize + j);
+      float ix = cellsize*i;
+      float iy = cellsize*j;
       
-      if (xpos >= ix && ypos >= iy){
+      if (xpos == ix && ypos == iy){
         pollution[i][j] = false;
       }
     }
   }
+}
+
+void batteryLife(){
+  
+  fill(0,255,0);
+  
+  rect(xpos,ypos-3,batnum,3);
+  
+  int s = second(); //Tracks time from 0s-59s
+  
+  if (s == 2){
+    batnum -= 1;
+    s = second();
+  }
+
+}
+void storage(){
+  
+  rect(xpos,ypos+3,plastored+10,3);
 }
 }

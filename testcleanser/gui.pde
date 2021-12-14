@@ -45,6 +45,7 @@ public void ResetButtonPressed(GButton source, GEvent event) { //_CODE_:Reset:60
 public void PlasticAmountClick(GSlider source, GEvent event) { //_CODE_:PlasticAmount:528106:
   removePol();
   pollutionChance = PlasticAmount.getValueF();
+  reset();
   getpix();
 
 
@@ -79,7 +80,7 @@ public void createGUI(){
   G4P.setGlobalColorScheme(GCScheme.BLUE_SCHEME);
   G4P.setMouseOverEnabled(false);
   surface.setTitle("Sketch Window");
-  window2 = GWindow.getWindow(this, "Window title", 0, 0, 255, 320, JAVA2D);
+  window2 = GWindow.getWindow(this, "Control Module", 0, 0, 255, 320, JAVA2D);
   window2.noLoop();
   window2.setActionOnClose(G4P.KEEP_OPEN);
   window2.addDrawHandler(this, "win_draw1");
