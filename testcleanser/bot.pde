@@ -1,8 +1,9 @@
 int xs = round(random(-10,10));
 int ys = round(random(-10,10));
+float batterylife;
 
 class bot{
-  float batteryLife;
+  float draining;
   float xpos;
   float ypos;
   float efficiency;
@@ -10,8 +11,7 @@ class bot{
   float batnum;
   
   //constructor
-  bot(float b, float e){
-    this.batteryLife = b;
+  bot(float e){
     for (int i = 0;i<n;i++){
       for (int j = 0;j<n;j++) {
         if (Land[i][j] == true) {
@@ -22,6 +22,7 @@ class bot{
       
     }
     
+    this.draining = (100-batterylife)/100;
     this.efficiency = e;
    
    batnum = 30;
@@ -88,11 +89,11 @@ void batteryLife(){
   
   int s = second(); //Tracks time from 0s-59s
   
-  if (s == 2){
-    batnum -= 1;
-    s = second();
+  if (s%2 == 0){
+    batnum -= draining;
   }
-
+  
+  
 }
 void storage(){
   

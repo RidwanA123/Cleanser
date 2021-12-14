@@ -286,7 +286,7 @@ void getpix() {
     }
   }
   plasticGeneration();
-    Clenser = new bot(100,100);
+    Clenser = new bot(100);
   updatePixels();
 }
 
@@ -334,7 +334,7 @@ void reset(){
  getpix();
  loadPixels();
  
- Clenser = new bot(100,100);
+ Clenser = new bot(100);
 }
 
 void removePol(){
