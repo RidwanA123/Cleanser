@@ -63,12 +63,6 @@ void setup() {
   
   image = loadImage("NA.png");
   image(image, -500, -300);
-
-  cleanserbot = new boolean[n][n];
-  
-  for (int c = 0; c < botNum; c++){
-  
-  }
  
   ocean = new boolean[height][width];
   Land = new boolean[height][width];
@@ -86,6 +80,9 @@ void setup() {
   //setCellValuesRandomly();
   //setCellValuesAlternating();
   
+  for (int c = 0; c < botNum; c++){
+    Clenser = new bot(100);
+  }
 }
 
 
@@ -286,7 +283,7 @@ void getpix() {
     }
   }
   plasticGeneration();
-    Clenser = new bot(100);
+  
   updatePixels();
 }
 
@@ -319,6 +316,7 @@ void copyNextGenerationToCurrentGeneration() {
 }
 
 void reset(){
+  Clenser = new bot(100);
   plastNum = 0;
   botNum = 1;
   
@@ -328,13 +326,7 @@ void reset(){
     }
   }
   plasticGeneration();
-  image = loadImage("NA.png");
-  image(image, -500, -300);
  
- getpix();
- loadPixels();
- 
- Clenser = new bot(100);
 }
 
 void removePol(){

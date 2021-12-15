@@ -12,17 +12,12 @@ class bot{
   
   //constructor
   bot(float e){
-    for (int i = 0;i<n;i++){
-      for (int j = 0;j<n;j++) {
-        if (Land[i][j] == true) {
-          this.xpos = round(cellsize*i);
-          this.ypos = round(cellsize*j);
-        }
-      }
-      
-    }
     
-    this.draining = (100-batterylife)/100;
+    this.xpos = random(400,500);
+    this.ypos = random(400,500);
+        
+    
+    this.draining = (100-batterylife)/500;
     this.efficiency = e;
    
    batnum = 30;
@@ -91,6 +86,14 @@ void batteryLife(){
   
   if (s%2 == 0){
     batnum -= draining;
+  }
+  if (batnum <= 0){
+    xpos = 1000000000;
+    botNum -= 1;
+    if (botNum <= 0){
+      text("All the bots sunk due to no battery, press restart",width/2,height/2);
+      noLoop();
+    }
   }
   
   
