@@ -107,6 +107,15 @@ public void checkbox1_clicked1(GCheckbox source, GEvent event) { //_CODE_:checkb
   println("checkbox1 - GCheckbox >> GEvent." + event + " @ " + millis());
 } //_CODE_:checkbox1:302654:
 
+public void checkbox2_clicked1(GCheckbox source, GEvent event) { //_CODE_:scatteredVal:486988:
+
+ 
+  plasticGeneration();
+  
+
+  
+} //_CODE_:scatteredVal:486988:
+
 
 
 // Create all the GUI controls. 
@@ -172,12 +181,18 @@ public void createGUI(){
   Oceans = new GDropList(window2, 145, 58, 90, 100, 4, 10);
   Oceans.setItems(loadStrings("list_849723"), 0);
   Oceans.addEventHandler(this, "dropList1_click1");
-  checkbox1 = new GCheckbox(window2, 123, 157, 120, 20);
+  checkbox1 = new GCheckbox(window2, 126, 151, 120, 20);
   checkbox1.setIconAlign(GAlign.LEFT, GAlign.MIDDLE);
   checkbox1.setText("Efficient");
   checkbox1.setLocalColorScheme(GCScheme.GOLD_SCHEME);
   checkbox1.setOpaque(false);
   checkbox1.addEventHandler(this, "checkbox1_clicked1");
+  scatteredVal = new GCheckbox(window2, 127, 176, 120, 20);
+  scatteredVal.setIconAlign(GAlign.LEFT, GAlign.MIDDLE);
+  scatteredVal.setText("Plastic Scattered");
+  scatteredVal.setLocalColorScheme(GCScheme.RED_SCHEME);
+  scatteredVal.setOpaque(false);
+  scatteredVal.addEventHandler(this, "checkbox2_clicked1");
   window2.loop();
 }
 
@@ -196,3 +211,4 @@ GLabel label2;
 GLabel label3; 
 GDropList Oceans; 
 GCheckbox checkbox1; 
+GCheckbox scatteredVal; 

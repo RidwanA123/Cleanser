@@ -10,6 +10,7 @@ int plastored;
 float cellsize;
 
 float pollutionChance;
+boolean b;
 
 boolean buttonPressed = false;
 
@@ -51,15 +52,21 @@ boolean ontouchedd;
 PImage image;  
 
 void setup() {
+  noStroke();
+  size(1000, 700);   
+  frameRate( CPS);
+  restart();
   
-  plastored = 1;
+  
+}
+
+void restart() {
+ plastored = 1;
   plastNum = round(random(20,50));
   botNum = round(random(1,3));
   createGUI();
   xb = 0;
-  noStroke();
-  size(1000, 700);   
-  frameRate( CPS);
+  
   
   image = loadImage("NA.png");
   image(image, -500, -300);
@@ -84,11 +91,8 @@ void setup() {
   for (int c = 0; c < botNum; c++){
     Clenser = new bot(100);
   }
-
-  
+ 
 }
-
-
 void draw() {
   background(0, 0, 255);    
     cMap();
@@ -346,6 +350,7 @@ else {
 }
 
 //Below is the random plastic generation scattered all over the ocean
+if (scatteredVal.isSelected() == true) {
 for (int i=0; i<n; i++) {
   for (int j=0;j<n;j++) {
     if (ocean[i][j] == true) {
@@ -358,6 +363,8 @@ for (int i=0; i<n; i++) {
     }
   }
 }
+}
+
   
 
 }
