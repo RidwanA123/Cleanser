@@ -293,7 +293,7 @@ void plasticGeneration() {
   
   
   
-  
+ //Below is the plastic patch generation for different maps
   
 int selectedMap = Oceans.getSelectedIndex();  
 if (selectedMap == 1) {
@@ -302,7 +302,7 @@ if (selectedMap == 1) {
        float rand = random(0,1);
        
        float convert = pollutionChance/100;
-       if (rand<convert){    //This is where we need to put in the option to change probability of plastic generation in the GUI 
+       if (rand<convert){    
          pollution[i][j] = true;
       }
   }
@@ -314,7 +314,7 @@ else if (selectedMap == 2) {
        float rand = random(0,1);
        
        float convert = pollutionChance/100;
-       if (rand<convert){    //This is where we need to put in the option to change probability of plastic generation in the GUI 
+       if (rand<convert){    
          pollution[i][j] = true;
       }
   }
@@ -326,7 +326,7 @@ else if (selectedMap == 3) {
        float rand = random(0,1);
        
        float convert = pollutionChance/100;
-       if (rand<convert){    //This is where we need to put in the option to change probability of plastic generation in the GUI 
+       if (rand<convert){   
          pollution[i][j] = true;
       }
   }
@@ -338,14 +338,26 @@ else {
        float rand = random(0,1);
        
        float convert = pollutionChance/100;
-       if (rand<convert){    //This is where we need to put in the option to change probability of plastic generation in the GUI 
+       if (rand<convert){    
          pollution[i][j] = true;
       }
   }
   }
 }
 
-  
+//Below is the random plastic generation scattered all over the ocean
+for (int i=0; i<n; i++) {
+  for (int j=0;j<n;j++) {
+    if (ocean[i][j] == true) {
+      float rand = random(0,1);
+       
+       float convert = pollutionChance/500;
+       if (rand<convert){    
+         pollution[i][j] = true;
+      }
+    }
+  }
+}
   
 
 }
