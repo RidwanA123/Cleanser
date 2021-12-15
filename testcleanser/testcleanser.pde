@@ -30,7 +30,8 @@ boolean[][] cells, cellsNext, Land, reg, cleanserbot,ocean;
 
 
 float cellSize;
-
+float[][] plasticX = new float[n][n];
+float[][] plasticY = new float[n][n];
 
 
 color[][] temp;
@@ -344,6 +345,8 @@ else {
        float convert = pollutionChance/100;
        if (rand<convert){    
          pollution[i][j] = true;
+          plasticX[i][j] = i;
+         plasticY[i][j] = j;
       }
   }
   }
@@ -359,6 +362,8 @@ for (int i=0; i<n; i++) {
        float convert = pollutionChance/500;
        if (rand<convert){    
          pollution[i][j] = true;
+         plasticX[i][j] = i;
+         plasticY[i][j] = j;
       }
     }
   }
@@ -368,14 +373,7 @@ for (int i=0; i<n; i++) {
   
 
 }
-void copyNextGenerationToCurrentGeneration() {
-  for (int i=0; i<n; i++) 
-    for (int j=0; j<n; j++) {
-      cellscol[i][j] = cellscolNext[i][j];
-      xSpeeds[i][j] = xSpeedsNext[i][j];
-      ySpeeds[i][j] = ySpeedsNext[i][j];
-    }
-}
+
 void loadIndianOcean() {
  
   
