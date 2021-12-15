@@ -208,6 +208,7 @@ void draw() {
     copyNextGenerationToCurrentGeneration();
     
     Clenser.moveBot();
+    Clenser.storage();
   }
 }
 int x = 0;

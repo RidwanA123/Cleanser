@@ -17,7 +17,7 @@ class bot{
     this.ypos = random(400,500);
         
     
-    this.draining = (100-batterylife)/500;
+    this.draining = (100-batterylife)/1000;
     this.efficiency = e;
    
    batnum = 30;
@@ -64,8 +64,8 @@ class bot{
 }
 
 void detectPlastic(){
-   for(int i = 0; i < n; i++){
-    for(int j = 0; j < n; j++){
+   for(int i = 0; i < width; i++){
+    for(int j = 0; j < height; j++){
       float ix = cellsize*i;
       float iy = cellsize*j;
       
@@ -95,11 +95,9 @@ void batteryLife(){
       noLoop();
     }
   }
-  
-  
 }
 void storage(){
-  
-  rect(xpos,ypos+3,plastored+10,3);
+  fill(255,165,0);
+  rect(xpos,ypos+30,plastored+10,3);
 }
 }
