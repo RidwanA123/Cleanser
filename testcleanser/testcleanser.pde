@@ -22,7 +22,7 @@ boolean buttonPressed = false;
 
 
 int n = 100;
-float padding = 50;
+float padding = 0;
 float CPS = 10;
 boolean[][] cells, cellsNext, Land, reg, cleanserbot,ocean;
 
@@ -74,6 +74,7 @@ void setup() {
   getpix();
 
 
+
   cellSize = (width-2*padding)/n;
   cells = new boolean[n][n];
   cellsNext = new boolean[n][n];
@@ -83,13 +84,40 @@ void setup() {
   for (int c = 0; c < botNum; c++){
     Clenser = new bot(100);
   }
+  
 }
 
 
 void draw() {
   background(0, 0, 255);    
-  float y = padding;
+    cMap();
+  
+    genCount++;
+   
+    if (ontouchedd) {
+      ontouched();
+    }
+   
+    if (savestate) {
+      savestates();
+    }
+    
+    
+   // copyNextGenerationToCurrentGeneration();
+    
+    Clenser.moveBot();
+    Clenser.storage();
+  }
 
+int x = 0;
+boolean savestate;
+void savestates() {
+              
+}
+
+
+void cMap() {  
+  float y = padding;
   if (true) {
 
     for (int i=0; i<n; i++) {
@@ -192,33 +220,8 @@ void draw() {
 
       y += cellSize;
     }
-
-
-    genCount++;
-   
-    if (ontouchedd) {
-      ontouched();
-    }
-   
-    if (savestate) {
-      savestates();
-    }
-    
-    
-    copyNextGenerationToCurrentGeneration();
-    
-    Clenser.moveBot();
-    Clenser.storage();
-  }
 }
-int x = 0;
-boolean savestate;
-void savestates() {
-              
 }
-
-
-
 
 void secondstate() {
   
@@ -334,7 +337,7 @@ void loadPacificOcean() {
 }
 void loadAtlanticOcean() {
   image = loadImage("AtlanticOcean.jpg");
-    image(image, 300, 0);
+    image(image, 0, 0);
     
   
 }
