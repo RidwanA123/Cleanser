@@ -314,7 +314,46 @@ void copyNextGenerationToCurrentGeneration() {
       ySpeeds[i][j] = ySpeedsNext[i][j];
     }
 }
+void loadIndianOcean() {
+ 
+  
+  image = loadImage("IndianOcean.jpg");
+    image(image, -100, -200);
+  
+}
+void loadArcticOcean() {
+  image = loadImage("ArcticOcean.jpg");
+    image(image, -100, -200);
+  
+}
+void loadPacificOcean() {
+  image = loadImage("NA.png");
+    image(image, -550, -300);
+  
+}
+void loadAtlanticOcean() {
+  image = loadImage("AtlanticOcean.jpg");
+    image(image, 300, 0);
+    
+  
+}
+void resetLand() {
+  for (int i = 0; i <n; i++) {
+    for (int j = 0; j<n;j++) {
+       //float x = padding + j*cellSize;
+       //float y = padding;
+       //fill(color(255, 165, 0));
 
+
+       //rect(x, y, cellSize, cellSize);
+      Land[i][j] = false;
+      ocean[i][j] = false;
+      
+      
+    }
+}
+ redraw();
+}
 void reset(){
   Clenser = new bot(100);
   plastNum = 0;

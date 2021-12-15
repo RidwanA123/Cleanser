@@ -65,7 +65,42 @@ public void slider1_change1(GSlider source, GEvent event) { //_CODE_:BatteryQual
 } //_CODE_:BatteryQuality:496630:
 
 public void dropList1_click1(GDropList source, GEvent event) { //_CODE_:Oceans:849723:
-  println("Oceans - GDropList >> GEvent." + event + " @ " + millis());
+int index = Oceans.getSelectedIndex();
+
+if (index == 1) {
+  resetLand();
+  removePol();
+   pollutionChance = PlasticAmount.getValueF();
+  loadIndianOcean();
+  getpix();
+}
+else if (index == 2) {
+
+  resetLand();
+  removePol();
+   pollutionChance = PlasticAmount.getValueF();
+  loadArcticOcean();
+  getpix();
+}
+else if (index == 3) {
+  
+  resetLand();
+  removePol();
+ 
+   pollutionChance = PlasticAmount.getValueF();
+  loadAtlanticOcean();
+  getpix();
+
+}
+else {
+  resetLand();
+  removePol();
+   pollutionChance = PlasticAmount.getValueF();
+  loadPacificOcean();
+  getpix();
+}
+
+
 } //_CODE_:Oceans:849723:
 
 public void slider1_change2(GSlider source, GEvent event) { //_CODE_:Efficiency:809885:
@@ -111,7 +146,7 @@ public void createGUI(){
   NumberOfCleanser.addEventHandler(this, "textfield1_change1");
   label1 = new GLabel(window2, 113, 162, 155, 20);
   label1.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
-  label1.setText("Number Of Cleansers");
+  label1.setText("Number Of Cleansers:");
   label1.setLocalColorScheme(GCScheme.PURPLE_SCHEME);
   label1.setOpaque(false);
   BatteryLevel = new GLabel(window2, 7, 139, 90, 20);
@@ -148,6 +183,10 @@ public void createGUI(){
   label4.setText("Efficiency");
   label4.setLocalColorScheme(GCScheme.YELLOW_SCHEME);
   label4.setOpaque(false);
+  label5 = new GLabel(window2, 138, 41, 80, 20);
+  label5.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
+  label5.setText("Ocean:");
+  label5.setOpaque(false);
   window2.loop();
 }
 
@@ -167,3 +206,4 @@ GLabel label3;
 GDropList Oceans; 
 GSlider Efficiency; 
 GLabel label4; 
+GLabel label5; 
