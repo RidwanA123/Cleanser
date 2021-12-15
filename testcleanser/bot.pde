@@ -7,6 +7,7 @@ class bot{
   int ypos;
   float efficiency;
   PImage img;
+  int storage = 0;
   
   //constructor
   bot(float b, float e){
