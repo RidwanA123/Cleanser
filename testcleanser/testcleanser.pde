@@ -5,9 +5,12 @@ PImage botpic;
 int botNum;
 int plastNum; 
 
+int plastored;
+
 float cellsize;
 
 float pollutionChance;
+boolean b;
 
 boolean buttonPressed = false;
 
@@ -20,20 +23,20 @@ boolean buttonPressed = false;
 
 
 int n = 100;
-float padding = 50;
+float padding = 0;
 float CPS = 10;
 boolean[][] cells, cellsNext, Land, reg, cleanserbot,ocean;
 
-int[][] nukestage = new int[n][n];
+
 
 float cellSize;
+float[][] plasticX = new float[n][n];
+float[][] plasticY = new float[n][n];
 
 
-boolean mswitch = false;
-String misstype;
 color[][] temp;
 int genCount = 0;
-int blastLimit = 4;
+
 boolean state[][];
 
 int xb = 0;
@@ -50,23 +53,25 @@ boolean ontouchedd;
 PImage image;  
 
 void setup() {
+  noStroke();
+  size(1000, 700);   
+  frameRate( CPS);
+  restart();
+  
+  
+}
+
+void restart() {
+ plastored = 1;
   plastNum = round(random(20,50));
   botNum = round(random(1,3));
   createGUI();
   xb = 0;
-  size(1000, 700);   
-  noStroke();
-  frameRate( CPS);
-
-  image = loadImage("NA.png");
-  image(image, -400, 0);
-
-  cleanserbot = new boolean[n][n];
   
-  for (int c = 0; c < botNum; c++){
-  Clenser = new bot(100,100);
-  }
-
+  
+  image = loadImage("NA.png");
+  image(image, -500, -300);
+ 
   ocean = new boolean[height][width];
   Land = new boolean[height][width];
   pollution = new boolean[n][n];
@@ -78,21 +83,47 @@ void setup() {
 
 
 
-  //noStroke();
-
   cellSize = (width-2*padding)/n;
   cells = new boolean[n][n];
   cellsNext = new boolean[n][n];
   //setCellValuesRandomly();
   //setCellValuesAlternating();
   
+  for (int c = 0; c < botNum; c++){
+    Clenser = new bot(100);
+  }
+ 
+}
+void draw() {
+  background(0, 0, 255);    
+    cMap();
+  
+    genCount++;
+   
+    if (ontouchedd) {
+      ontouched();
+    }
+   
+    if (savestate) {
+      savestates();
+    }
+    
+    
+   // copyNextGenerationToCurrentGeneration();
+    
+    Clenser.moveBot();
+    Clenser.storage();
+  }
+
+int x = 0;
+boolean savestate;
+void savestates() {
+              
 }
 
 
-void draw() {
-  background(0, 0, 255);    
+void cMap() {  
   float y = padding;
-
   if (true) {
 
     for (int i=0; i<n; i++) {
@@ -126,7 +157,7 @@ void draw() {
               fill(104,189,86);
 
               rect(x, y, cellSize, cellSize);
-              coloursetter(i, j, 1);  
+              
 
 
 
@@ -153,7 +184,7 @@ void draw() {
               
               rect(x, y, cellSize, cellSize);
 
-              coloursetter(i, j, 1);
+             
              
             }
           }
@@ -195,110 +226,9 @@ void draw() {
 
       y += cellSize;
     }
-
-
-    genCount++;
-    setNextGeneration();
-    if (ontouchedd) {
-      ontouched();
-    }
-   
-    if (savestate) {
-      savestates();
-    }
-    
-    
-    copyNextGenerationToCurrentGeneration();
-     fireFirstMissile();
-  
-    Clenser.moveBot();
-    fill(0);
-    rect(64,50,5,5);
-  }
 }
-int x = 0;
-boolean savestate;
-void savestates() {
-              
 }
 
-void fireFirstMissile() {
-   for (int i=0; i<n; i++) 
-      for (int j=0; j<n; j++) {
-        if (genCount > x && cleanserbot[i][j] == true && mswitch == false) {
-          mswitch = true;
-          cellscol[i][j] = color(255, 165, 0);
-          misstype = "Cuba";
-          xSpeeds[i][j] = -2;
-          ySpeeds[i][j] = -2;
-          x = x + 50;
-        }
-        if (genCount > x && mswitch == true ) {
-    
-        }
-      }
-}
-void setNextGeneration() {
-  scrubNext(); 
-
-  for (int i=0; i<n; i++) {
-    for (int j=0; j<n; j++) {
-
-      int sx = xSpeeds[i][j];
-      int sy = ySpeeds[i][j];
-
-
-      if (cellscol[i][j] == color(255, 165, 0)) {
-        try {
-          int iNext = i + sy;
-          int jNext = j + sx;
-          cellscolNext[iNext][jNext] = color(255, 165, 0); 
-          xSpeedsNext[iNext][jNext] = sx;
-          ySpeedsNext[iNext][jNext] = sy;
-
-          // println(genCount);
-
-          cellscolNext[iNext][jNext] = color(255, 165, 0); 
-          xSpeedsNext[iNext][jNext] = sx;
-          ySpeedsNext[iNext][jNext] = sy;
-          if (cleanserbot[iNext][jNext] == true && misstype == "NATO") {
-            float x = int(random(1, 2));
-            if (x == 1) {
-
-              misstype = "";
-              cleanserbot[iNext][jNext] = false;
-              cellscol[i][j] = color(255, 165, 0);
-              cellscolNext[iNext][jNext] = color(255, 165, 0);
-              temp[i][j] = cellscolNext[i][j];
-              ontouched();
-              ontouchedd = true;
-            }
-          
-          } else {
-          }
-        }
-
-
-
-        catch( Exception e) {
-
-
-          xSpeedsNext[i][j] = 0;
-          ySpeedsNext[i][j] = 0;
-        }
-      }
-    }
-  }
-}
-
-
-void secondstate() {
-  
-         
-    
-
-
-}
 
 void ontouched() {
 
@@ -356,67 +286,146 @@ void getpix() {
     }
   }
   plasticGeneration();
+  
   updatePixels();
 }
 
 
 
-void coloursetter(int r, int c, int type) {
 
-  if (nukestage[r][c] == 1) {     // Orange 
-    fill(255, 165, 0);
-  }
-  if (type == 1) {
-    fill(0, 255, 0);
-  }
-}
  
 void plasticGeneration() {
-
+  
+  
+  
+ //Below is the plastic patch generation for different maps
+  
+int selectedMap = Oceans.getSelectedIndex();  
+if (selectedMap == 1) {
   for (int i=40; i<70;i++) {
-    for (int j=20; j<50;j++){
+    for (int j=10; j<40;j++){
        float rand = random(0,1);
        
        float convert = pollutionChance/100;
-       if (rand<convert){                         //This is where we need to put in the option to change probability of plastic generation in the GUI 
+       if (rand<convert){    
          pollution[i][j] = true;
       }
   }
   }
-  
-  for (int i=0; i<n; i++) 
-    for (int j=0; j<n; j++) {
-      if (cleanserbot[i][j] == true && mswitch == false) {
-        mswitch = true;
-        cellscol[i][j] = color(255, 165, 0);
-        misstype = "Cuba";
-        xSpeeds[i][j] = 2;
-        ySpeeds[i][j] = 2;
+}
+else if (selectedMap == 2) {
+  for (int i=10; i<40;i++) {
+    for (int j=20; j<50;j++){
+       float rand = random(0,1);
+       
+       float convert = pollutionChance/100;
+       if (rand<convert){    
+         pollution[i][j] = true;
       }
+  }
+  }
+}
+else if (selectedMap == 3) {
+  for (int i=10; i<40;i++) {
+    for (int j=60; j<90;j++){
+       float rand = random(0,1);
+       
+       float convert = pollutionChance/100;
+       if (rand<convert){   
+         pollution[i][j] = true;
+      }
+  }
+  }
+}
+else {
+   for (int i=40; i<70;i++) {
+    for (int j=20; j<50;j++){
+       float rand = random(0,1);
+       
+       float convert = pollutionChance/100;
+       if (rand<convert){    
+         pollution[i][j] = true;
+          plasticX[i][j] = i;
+         plasticY[i][j] = j;
+      }
+  }
+  }
+}
+
+//Below is the random plastic generation scattered all over the ocean
+if (scatteredVal.isSelected() == true) {
+for (int i=0; i<n; i++) {
+  for (int j=0;j<n;j++) {
+    if (ocean[i][j] == true) {
+      float rand = random(0,1);
+       
+       float convert = pollutionChance/500;
+       if (rand<convert){    
+         pollution[i][j] = true;
+         plasticX[i][j] = i;
+         plasticY[i][j] = j;
+      }
+    }
+  }
+}
+}
+
+  
+
+}
+
+void loadIndianOcean() {
+ 
+  
+  image = loadImage("IndianOcean.jpg");
+    image(image, -100, -200);
+  
+}
+void loadArcticOcean() {
+  image = loadImage("ArcticOcean.jpg");
+    image(image, -200, -500);
+  
+}
+void loadPacificOcean() {
+  image = loadImage("NA.png");
+    image(image, -480, -200);
+  
+}
+void loadAtlanticOcean() {
+  image = loadImage("AtlanticOcean.jpg");
+    image(image, 0, 0);
+    
+  
+}
+void initializeMap() {
+  image = loadImage("initializer.jpg");
+  image(image,0,0);
+}
+void resetLand() {
+  for (int i = 0; i <n; i++) {
+    for (int j = 0; j<n;j++) {
+       //float x = padding + j*cellSize;
+       //float y = padding;
+       //fill(color(255, 165, 0));
+
+
+       //rect(x, y, cellSize, cellSize);
+      Land[i][j] = false;
+      ocean[i][j] = false;
+      
       
     }
 }
-void copyNextGenerationToCurrentGeneration() {
-  for (int i=0; i<n; i++) 
-    for (int j=0; j<n; j++) {
-      cellscol[i][j] = cellscolNext[i][j];
-      xSpeeds[i][j] = xSpeedsNext[i][j];
-      ySpeeds[i][j] = ySpeedsNext[i][j];
-    }
+ redraw();
 }
-
 void reset(){
+  Clenser = new bot(100);
+  plastNum = 0;
+  botNum = 1;
   
-  image = loadImage("NA.png");
-  image(image, -400, 0);
-
-  ocean = new boolean[height][width];
-  Land = new boolean[height][width];
-  pollution = new boolean[n][n];
-
+  removePol();
+  plasticGeneration();
  
- getpix();
- loadPixels();
 }
 
 void removePol(){
