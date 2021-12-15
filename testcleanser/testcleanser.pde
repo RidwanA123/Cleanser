@@ -84,6 +84,7 @@ void setup() {
   for (int c = 0; c < botNum; c++){
     Clenser = new bot(100);
   }
+
   
 }
 
@@ -223,13 +224,6 @@ void cMap() {
 }
 }
 
-void secondstate() {
-  
-         
-    
-
-
-}
 
 void ontouched() {
 
@@ -296,8 +290,26 @@ void getpix() {
 
  
 void plasticGeneration() {
-
+  
+  
+  
+  
+  
+int selectedMap = Oceans.getSelectedIndex();  
+if (selectedMap == 1) {
   for (int i=40; i<70;i++) {
+    for (int j=10; j<40;j++){
+       float rand = random(0,1);
+       
+       float convert = pollutionChance/100;
+       if (rand<convert){    //This is where we need to put in the option to change probability of plastic generation in the GUI 
+         pollution[i][j] = true;
+      }
+  }
+  }
+}
+else if (selectedMap == 2) {
+  for (int i=10; i<40;i++) {
     for (int j=20; j<50;j++){
        float rand = random(0,1);
        
@@ -307,6 +319,33 @@ void plasticGeneration() {
       }
   }
   }
+}
+else if (selectedMap == 3) {
+  for (int i=10; i<40;i++) {
+    for (int j=60; j<90;j++){
+       float rand = random(0,1);
+       
+       float convert = pollutionChance/100;
+       if (rand<convert){    //This is where we need to put in the option to change probability of plastic generation in the GUI 
+         pollution[i][j] = true;
+      }
+  }
+  }
+}
+else {
+   for (int i=40; i<70;i++) {
+    for (int j=20; j<50;j++){
+       float rand = random(0,1);
+       
+       float convert = pollutionChance/100;
+       if (rand<convert){    //This is where we need to put in the option to change probability of plastic generation in the GUI 
+         pollution[i][j] = true;
+      }
+  }
+  }
+}
+
+  
   
 
 }
@@ -327,12 +366,12 @@ void loadIndianOcean() {
 }
 void loadArcticOcean() {
   image = loadImage("ArcticOcean.jpg");
-    image(image, -100, -200);
+    image(image, -200, -500);
   
 }
 void loadPacificOcean() {
   image = loadImage("NA.png");
-    image(image, -550, -300);
+    image(image, -480, -200);
   
 }
 void loadAtlanticOcean() {
@@ -340,6 +379,10 @@ void loadAtlanticOcean() {
     image(image, 0, 0);
     
   
+}
+void initializeMap() {
+  image = loadImage("initializer.jpg");
+  image(image,0,0);
 }
 void resetLand() {
   for (int i = 0; i <n; i++) {
