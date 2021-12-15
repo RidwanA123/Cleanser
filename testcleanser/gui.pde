@@ -109,7 +109,7 @@ public void checkbox1_clicked1(GCheckbox source, GEvent event) { //_CODE_:checkb
 
 public void checkbox2_clicked1(GCheckbox source, GEvent event) { //_CODE_:scatteredVal:486988:
 
- 
+  removePol();
   plasticGeneration();
   
 
@@ -137,7 +137,7 @@ public void createGUI(){
   Reset.setLocalColorScheme(GCScheme.RED_SCHEME);
   Reset.addEventHandler(this, "ResetButtonPressed");
   PlasticAmount = new GSlider(window2, 3, 100, 100, 40, 10.0);
-  PlasticAmount.setLimits(30, 1, 100);
+  PlasticAmount.setLimits(1, 1, 100);
   PlasticAmount.setNumberFormat(G4P.INTEGER, 0);
   PlasticAmount.setOpaque(false);
   PlasticAmount.addEventHandler(this, "PlasticAmountClick");
