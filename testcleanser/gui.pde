@@ -193,6 +193,10 @@ public void createGUI(){
   scatteredVal.setLocalColorScheme(GCScheme.RED_SCHEME);
   scatteredVal.setOpaque(false);
   scatteredVal.addEventHandler(this, "checkbox2_clicked1");
+  label4 = new GLabel(window2, 140, 37, 80, 20);
+  label4.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
+  label4.setText("Ocean:");
+  label4.setOpaque(false);
   window2.loop();
 }
 
@@ -212,3 +216,4 @@ GLabel label3;
 GDropList Oceans; 
 GCheckbox checkbox1; 
 GCheckbox scatteredVal; 
+GLabel label4; 
