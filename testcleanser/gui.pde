@@ -103,9 +103,9 @@ else {
 
 } //_CODE_:Oceans:849723:
 
-public void slider1_change2(GSlider source, GEvent event) { //_CODE_:Efficiency:809885:
-  println("Efficiency - GSlider >> GEvent." + event + " @ " + millis());
-} //_CODE_:Efficiency:809885:
+public void checkbox1_clicked1(GCheckbox source, GEvent event) { //_CODE_:checkbox1:302654:
+  println("checkbox1 - GCheckbox >> GEvent." + event + " @ " + millis());
+} //_CODE_:checkbox1:302654:
 
 
 
@@ -116,14 +116,14 @@ public void createGUI(){
   G4P.setGlobalColorScheme(GCScheme.BLUE_SCHEME);
   G4P.setMouseOverEnabled(false);
   surface.setTitle("Sketch Window");
-  window2 = GWindow.getWindow(this, "Control Module", 0, 0, 255, 320, JAVA2D);
+  window2 = GWindow.getWindow(this, "Control Module", 0, 0, 255, 220, JAVA2D);
   window2.noLoop();
   window2.setActionOnClose(G4P.KEEP_OPEN);
   window2.addDrawHandler(this, "win_draw1");
-  pauseButton = new GButton(window2, 2, 5, 80, 30);
+  pauseButton = new GButton(window2, 34, 3, 80, 30);
   pauseButton.setText("Pause");
   pauseButton.addEventHandler(this, "pauseButtonPressed");
-  Reset = new GButton(window2, 91, 4, 85, 29);
+  Reset = new GButton(window2, 142, 3, 85, 29);
   Reset.setText("Restart");
   Reset.setLocalColorScheme(GCScheme.RED_SCHEME);
   Reset.addEventHandler(this, "ResetButtonPressed");
@@ -138,15 +138,15 @@ public void createGUI(){
   CleanserStorage.setLocalColorScheme(GCScheme.ORANGE_SCHEME);
   CleanserStorage.setOpaque(false);
   CleanserStorage.addEventHandler(this, "Amount_They_pick");
-  NumberOfCleanser = new GTextField(window2, 134, 177, 111, 17, G4P.SCROLLBARS_NONE);
+  NumberOfCleanser = new GTextField(window2, 132, 115, 111, 17, G4P.SCROLLBARS_NONE);
   NumberOfCleanser.setText("1");
   NumberOfCleanser.setPromptText("1");
   NumberOfCleanser.setLocalColorScheme(GCScheme.PURPLE_SCHEME);
   NumberOfCleanser.setOpaque(true);
   NumberOfCleanser.addEventHandler(this, "textfield1_change1");
-  label1 = new GLabel(window2, 113, 162, 155, 20);
+  label1 = new GLabel(window2, 114, 96, 155, 20);
   label1.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
-  label1.setText("Number Of Cleansers:");
+  label1.setText("Number Of Cleansers");
   label1.setLocalColorScheme(GCScheme.PURPLE_SCHEME);
   label1.setOpaque(false);
   BatteryLevel = new GLabel(window2, 7, 139, 90, 20);
@@ -172,21 +172,12 @@ public void createGUI(){
   Oceans = new GDropList(window2, 145, 58, 90, 100, 4, 10);
   Oceans.setItems(loadStrings("list_849723"), 0);
   Oceans.addEventHandler(this, "dropList1_click1");
-  Efficiency = new GSlider(window2, 5, 183, 100, 40, 10.0);
-  Efficiency.setLimits(0.5, 0.0, 1.0);
-  Efficiency.setNumberFormat(G4P.DECIMAL, 2);
-  Efficiency.setLocalColorScheme(GCScheme.YELLOW_SCHEME);
-  Efficiency.setOpaque(false);
-  Efficiency.addEventHandler(this, "slider1_change2");
-  label4 = new GLabel(window2, 11, 180, 80, 20);
-  label4.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
-  label4.setText("Efficiency");
-  label4.setLocalColorScheme(GCScheme.YELLOW_SCHEME);
-  label4.setOpaque(false);
-  label5 = new GLabel(window2, 138, 41, 80, 20);
-  label5.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
-  label5.setText("Ocean:");
-  label5.setOpaque(false);
+  checkbox1 = new GCheckbox(window2, 123, 157, 120, 20);
+  checkbox1.setIconAlign(GAlign.LEFT, GAlign.MIDDLE);
+  checkbox1.setText("Efficient");
+  checkbox1.setLocalColorScheme(GCScheme.GOLD_SCHEME);
+  checkbox1.setOpaque(false);
+  checkbox1.addEventHandler(this, "checkbox1_clicked1");
   window2.loop();
 }
 
@@ -204,6 +195,4 @@ GSlider BatteryQuality;
 GLabel label2; 
 GLabel label3; 
 GDropList Oceans; 
-GSlider Efficiency; 
-GLabel label4; 
-GLabel label5; 
+GCheckbox checkbox1; 

@@ -17,7 +17,7 @@ class bot{
     this.ypos = random(400,500);
         
     
-    this.draining = (100-batterylife)/1000;
+    this.draining = (100-batterylife)/500;
     this.efficiency = e;
    
    batnum = 30;
