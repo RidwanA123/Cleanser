@@ -425,11 +425,7 @@ void reset(){
   plastNum = 0;
   botNum = 1;
   
-  for (int i=40; i<70;i++) {
-    for (int j=20; j<50;j++){
-      pollution[i][j] = false;
-    }
-  }
+  removePol();
   plasticGeneration();
  
 }
