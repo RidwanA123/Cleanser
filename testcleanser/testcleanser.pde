@@ -2,10 +2,11 @@ import g4p_controls.*;
 
 PImage botpic;
 
+boolean storageFull;
+
 int botNum;
 int plastNum; 
 
-int plastored;
 
 float cellsize;
 
@@ -56,16 +57,15 @@ void setup() {
   frameRate( CPS);
   restart();
   
-  
+  storageFull = false;
 }
 
 void restart() {
- plastored = 1;
   plastNum = round(random(20,50));
   botNum = round(random(1,3));
   createGUI();
 
-  
+  storageFull = false;
   
   image = loadImage("NA.png");
   image(image, -500, -300);
@@ -90,7 +90,7 @@ void restart() {
   cMap();
   for (int c = 0; c < botNum; c++){
      
-    Clenser = new bot(100);
+    Clenser = new bot();
   }
  
 }
@@ -98,8 +98,6 @@ void draw() {
   background(0, 0, 255);    
     cMap();
     Clenser.moveBot();
-    Clenser.storage();
-    Clenser.detectPlastic();
   }
 
 int x = 0;
@@ -392,7 +390,8 @@ void resetLand() {
  redraw();
 }
 void reset(){
-  Clenser = new bot(100);
+  storageFull = false;
+  Clenser = new bot();
   plastNum = 0;
   botNum = 1;
   

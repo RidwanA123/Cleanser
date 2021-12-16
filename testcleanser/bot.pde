@@ -1,30 +1,28 @@
 int xs = round(random(-20,20));
 int ys = round(random(-20,20));
 float batterylife;
+float storSize;
+
 float rand = 0;
 class bot{
   float draining;
   float xpos;
   float ypos;
-  float efficiency;
+  float stored;
   PImage img;
 
-  int storage = 0;
 
-  float batnum;
+  float plastored;
+  float full;
 
   //constructor
-  bot(float e){
+  bot(){
    
-    //this.xpos = random(400,500);
-    //this.ypos = random(400,500);
-        
-    
-    
     this.draining = (100-batterylife)/500;
-    this.efficiency = e;
+    this.stored = (100-storSize)/10;
    
-   batnum = 30;
+   full = 30;
+   plastored = 2;
    resetBot();
   }
   
@@ -43,11 +41,16 @@ class bot{
       }
       
     }
-    batnum = 30;
+    full = 30;
+    plastored = 2;
   }
   void moveBot(){
+    if (storageFull == false){
+      this.detectPlastic();
+    }
+    this.storage();
     this.batteryLife();
-  
+    
     if (xs > 0 && abs(xs) > abs(ys)){
       botpic = loadImage("clenser right-1.png.png");
     }
@@ -106,34 +109,37 @@ void detectPlastic(){
    
     
       try{
-      if (pollution[yCell+1][xCell] == true){
-        println("OK");
-        pollution[yCell+1][xCell] = false;
+      if (pollution[yCell-1][xCell-1] == true || pollution[yCell][xCell] == true || pollution[yCell+1][xCell+1] == true){
+        
+        pollution[yCell-1][xCell-1] = false;
+        pollution[yCell][xCell] = false;
+        pollution[yCell+1][xCell+1] = false;
            fill(0, 120, 255);                          //ocean
               
-           oceanBlock[yCell+1][xCell] = true;
+           oceanBlock[yCell][xCell] = true;
             rect(xCell, yCell, cellSize, cellSize);
+       plastored += stored;
        
-    
   }
       }
       catch(Exception e) {
       }
-
+  
+  this.storage();
 }
 
 void batteryLife(){
   
   fill(0,255,0);
   
-  rect(xpos,ypos-3,batnum,3);
+  rect(xpos,ypos-3,full,3);
   
   int s = second(); //Tracks time from 0s-59s
   
   if (s%2 == 0){
-    batnum -= draining;
+    full -= draining;
   }
-  if (batnum <= 0){
+  if (full <= 0){
     xpos = 1000000000;
     botNum -= 1;
     if (botNum <= 0){
@@ -144,6 +150,10 @@ void batteryLife(){
 }
 void storage(){
   fill(255,165,0);
-  rect(xpos,ypos+30,plastored+10,3);
+  rect(xpos,ypos+40,plastored,3);
+  
+  if (plastored >= full){
+    storageFull = true;
+  }
 }
 }

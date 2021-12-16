@@ -52,8 +52,9 @@ public void PlasticAmountClick(GSlider source, GEvent event) { //_CODE_:PlasticA
 
 } //_CODE_:PlasticAmount:528106:
 
-public void Amount_They_pick(GSlider source, GEvent event) { //_CODE_:CleanserStorage:536613:
-  println("CleanserStorage - GSlider >> GEvent." + event + " @ " + millis());
+public void slider_change2(GSlider source, GEvent event) { //_CODE_:CleanserStorage:536613:
+  storSize = CleanserStorage.getValueF();
+  storageFull = false;
 } //_CODE_:CleanserStorage:536613:
 
 public void textfield1_change1(GTextField source, GEvent event) { //_CODE_:NumberOfCleanser:985657:
@@ -152,11 +153,11 @@ public void createGUI(){
   PlasticAmount.setOpaque(false);
   PlasticAmount.addEventHandler(this, "PlasticAmountClick");
   CleanserStorage = new GSlider(window2, 3, 54, 100, 40, 10.0);
-  CleanserStorage.setLimits(10.0, 5.0, 20.0);
+  CleanserStorage.setLimits(50.0, 10.0, 90.0);
   CleanserStorage.setNumberFormat(G4P.DECIMAL, 2);
   CleanserStorage.setLocalColorScheme(GCScheme.ORANGE_SCHEME);
   CleanserStorage.setOpaque(false);
-  CleanserStorage.addEventHandler(this, "Amount_They_pick");
+  CleanserStorage.addEventHandler(this, "slider_change2");
   NumberOfCleanser = new GTextField(window2, 132, 115, 111, 17, G4P.SCROLLBARS_NONE);
   NumberOfCleanser.setText("1");
   NumberOfCleanser.setPromptText("1");
