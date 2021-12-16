@@ -223,6 +223,7 @@ if (mapChanged) {
   if (genCount > 8) {      //This sends the bot back to spawn everytime the map is changed
   reset();
   mapChanged = false;
+  genCount = 0;
   }
   
 }
