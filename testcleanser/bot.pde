@@ -1,25 +1,37 @@
 int xs = round(random(-10,10));
 int ys = round(random(-10,10));
 float batterylife;
-
+float rand = 0;
 class bot{
   float draining;
   float xpos;
   float ypos;
   float efficiency;
   PImage img;
-<<<<<<< HEAD
+
   int storage = 0;
-=======
+
   float batnum;
->>>>>>> 09ed1079e5f4cc9e6c06696915c7b6d226c410d8
-  
+
   //constructor
   bot(float e){
-    
-    this.xpos = random(400,500);
-    this.ypos = random(400,500);
+   
+    //this.xpos = random(400,500);
+    //this.ypos = random(400,500);
         
+    for (int i = 0; i<n;i++) {
+      for (int j = 0; j<n;j++) {
+        if (baseBlock[i][j] == true) {
+          rand = random(1,3);
+          if (rand >= 2){
+           this.xpos = j*9;
+          this.ypos = i*9;
+          }
+          
+        }
+      }
+      
+    }
     
     this.draining = (100-batterylife)/500;
     this.efficiency = e;

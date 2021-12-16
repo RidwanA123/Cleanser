@@ -25,7 +25,7 @@ boolean buttonPressed = false;
 int n = 100;
 float padding = 0;
 float CPS = 30;
-boolean[][] land, boundary,ocean,base;
+boolean[][] land, boundary,ocean,base,landBlock,oceanBlock,baseBlock;
 //land maps all cell positions of where the country will be
 //boundary sets the boundary for where plastic shoudn't be
 //ocean sets the cell states of where the ocean will be
@@ -73,6 +73,9 @@ void restart() {
   ocean = new boolean[height][width];
   land = new boolean[height][width];
   base = new boolean[height][width];
+  oceanBlock = new boolean[n][n];
+  landBlock = new boolean[n][n];
+  baseBlock = new boolean[n][n];
   pollution = new boolean[n][n];
   loadPixels();
   getpix();
@@ -83,8 +86,9 @@ void restart() {
  
   //setCellValuesRandomly();
   //setCellValuesAlternating();
-  
+  cMap();
   for (int c = 0; c < botNum; c++){
+     
     Clenser = new bot(100);
   }
  
@@ -92,20 +96,6 @@ void restart() {
 void draw() {
   background(0, 0, 255);    
     cMap();
-  
-    genCount++;
-   
-    if (ontouchedd) {
-      ontouched();
-    }
-   
-    if (savestate) {
-      savestates();
-    }
-    
-    
-   // copyNextGenerationToCurrentGeneration();
-    
     Clenser.moveBot();
     Clenser.storage();
   }
@@ -136,22 +126,25 @@ void cMap() {
            
              
            
-              fill(104,189,86);
+              fill(104,189,86);                      //land
 
               rect(x, y, cellSize, cellSize);
               
 
 
-
+              landBlock[i][j] = true;
               boundary[i][j] = true;
+              
         
           } else if ( (ocean[int((2*y+cellSize)/2)][int((2*x+cellSize)/2)])|| (ocean[int(y)][int(x)]) || (ocean[int(y+cellSize)][int(x)]) || (ocean[int(y)][int(x+cellSize)]) || (ocean[int(y+cellSize)][int(x+cellSize)]) ) {
          
            
             
-              fill(0, 120, 255);                          //land
+              fill(0, 120, 255);                          //ocean
               
+              oceanBlock[i][j] = true;
               rect(x, y, cellSize, cellSize);
+       
 
              
              
@@ -167,8 +160,9 @@ void cMap() {
               
               rect(x, y, cellSize, cellSize);
 
-             
+              baseBlock[i][j] = true;
               boundary[i][j] = true;
+             
             
           }
         
