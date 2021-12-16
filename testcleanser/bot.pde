@@ -89,7 +89,7 @@ class bot{
 void landDetection() {
  int xCell = round(this.xpos/ cellSize);
   int yCell = round(this.ypos/ cellSize);
-  println(xCell,yCell);
+ 
   try{if (landBlock[yCell][xCell] == true) {
     
     xs = xs *-1;
@@ -100,17 +100,26 @@ void landDetection() {
 }
 
 void detectPlastic(){
-  
-   for(int i = 0; i < width; i++){
-    for(int j = 0; j < height; j++){
-      float ix = cellsize*i;
-      float iy = cellsize*j;
-      
-      if (xpos == ix && ypos == iy){
-        pollution[i][j] = false;
-      }
-    }
+  int xCell = round(this.xpos/ cellSize);
+  int yCell = round(this.ypos/ cellSize);
+  println(xCell,yCell);
+   
+    
+      try{
+      if (pollution[yCell+1][xCell] == true){
+        println("OK");
+        pollution[yCell+1][xCell] = false;
+           fill(0, 120, 255);                          //ocean
+              
+           oceanBlock[yCell+1][xCell] = true;
+            rect(xCell, yCell, cellSize, cellSize);
+       
+    
   }
+      }
+      catch(Exception e) {
+      }
+
 }
 
 void batteryLife(){

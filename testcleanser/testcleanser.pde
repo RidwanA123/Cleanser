@@ -99,6 +99,7 @@ void draw() {
     cMap();
     Clenser.moveBot();
     Clenser.storage();
+    Clenser.detectPlastic();
   }
 
 int x = 0;
@@ -333,6 +334,7 @@ void loadIndianOcean() {
     image(image, -100, -200);
 
     reset();
+    Clenser.resetBot();
     
   
 }
@@ -341,7 +343,7 @@ void loadArcticOcean() {
     image(image, -200, -500);
   
     reset();
-    
+    Clenser.resetBot();
   
 }
 void loadPacificOcean() {
@@ -349,7 +351,7 @@ void loadPacificOcean() {
     image(image, -480, -200);
      
     reset();
-    
+      Clenser.resetBot();
   
 }
 void loadAtlanticOcean() {
@@ -359,7 +361,8 @@ void loadAtlanticOcean() {
     image(image, -400, 0);
 
     reset();
-    
+    Clenser.resetBot();
+  
   
 }
 void initializeMap() {
