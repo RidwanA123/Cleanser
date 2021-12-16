@@ -331,21 +331,34 @@ void loadIndianOcean() {
   
   image = loadImage("IndianOcean.png");
     image(image, -100, -200);
+     delay(3);
+    reset();
+    
   
 }
 void loadArcticOcean() {
   image = loadImage("ArcticOcean.png");
     image(image, -200, -500);
+     delay(3);
+    reset();
+    
   
 }
 void loadPacificOcean() {
   image = loadImage("NA.png");
     image(image, -480, -200);
+     delay(3);
+    reset();
+    
   
 }
 void loadAtlanticOcean() {
+  
+
   image = loadImage("AtlanticOcean.png");
-    image(image, 0, 0);
+    image(image, -400, 0);
+    delay(3);
+    reset();
     
   
 }
