@@ -19,6 +19,15 @@ class bot{
     //this.xpos = random(400,500);
     //this.ypos = random(400,500);
         
+    
+    
+    this.draining = (100-batterylife)/500;
+    this.efficiency = e;
+   
+   batnum = 30;
+  }
+  
+  void resetBot(){
     for (int i = 0; i<n;i++) {
       for (int j = 0; j<n;j++) {
         if (baseBlock[i][j] == true) {
@@ -32,13 +41,8 @@ class bot{
       }
       
     }
-    
-    this.draining = (100-batterylife)/500;
-    this.efficiency = e;
-   
-   batnum = 30;
+    batnum = 30;
   }
-  
   void moveBot(){
     this.batteryLife();
   

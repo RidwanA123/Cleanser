@@ -74,6 +74,7 @@ if (index == 1) {
   loadIndianOcean();
   loadPixels();
   getpix();
+  Clenser.resetBot();
 }
 else if (index == 2) {
 
@@ -83,6 +84,7 @@ else if (index == 2) {
   loadArcticOcean();
   loadPixels();
   getpix();
+  Clenser.resetBot();
 }
 else if (index == 3) {
   
@@ -93,6 +95,7 @@ else if (index == 3) {
   loadAtlanticOcean();
   loadPixels();
   getpix();
+  Clenser.resetBot();
 
 }
 else {
@@ -102,6 +105,7 @@ else {
   loadPacificOcean();
   loadPixels();
   getpix();
+  Clenser.resetBot();
 }
 
 
