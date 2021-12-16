@@ -181,7 +181,7 @@ public void createGUI(){
   PlasticAmount.setOpaque(false);
   PlasticAmount.addEventHandler(this, "PlasticAmountClick");
   CleanserStorage = new GSlider(window2, 3, 54, 100, 40, 10.0);
-  CleanserStorage.setLimits(50.0, 10.0, 90.0);
+  CleanserStorage.setLimits(5.0, 5.0, 90.0);
   CleanserStorage.setNumberFormat(G4P.DECIMAL, 2);
   CleanserStorage.setLocalColorScheme(GCScheme.ORANGE_SCHEME);
   CleanserStorage.setOpaque(false);
