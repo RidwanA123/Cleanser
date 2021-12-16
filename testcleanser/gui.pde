@@ -176,7 +176,7 @@ public void createGUI(){
   label2.setOpaque(false);
   label3 = new GLabel(window2, 7, 93, 91, 20);
   label3.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
-  label3.setText("Plastic Amountl");
+  label3.setText("Plastic Amount");
   label3.setOpaque(false);
   Oceans = new GDropList(window2, 145, 58, 90, 100, 4, 10);
   Oceans.setItems(loadStrings("list_849723"), 0);

@@ -15,7 +15,7 @@ boolean b;
 boolean buttonPressed = false;
 
 
-  String name;
+
   boolean[][] pollution;
 
 
@@ -24,8 +24,13 @@ boolean buttonPressed = false;
 
 int n = 100;
 float padding = 0;
-float CPS = 10;
-boolean[][] cells, cellsNext, Land, reg, cleanserbot,ocean;
+float CPS = 30;
+boolean[][] land, boundary,ocean,base;
+//land maps all cell positions of where the country will be
+//boundary sets the boundary for where plastic shoudn't be
+//ocean sets the cell states of where the ocean will be
+//base sets the cell states of where the base will be
+
 
 
 
@@ -34,20 +39,13 @@ float[][] plasticX = new float[n][n];
 float[][] plasticY = new float[n][n];
 
 
-color[][] temp;
+
 int genCount = 0;
 
 boolean state[][];
 
-int xb = 0;
 
-int[][] xSpeeds = new int[n][n];
-int[][] xSpeedsNext = new int[n][n];
 
-int[][] ySpeeds = new int[n][n];
-int[][] ySpeedsNext = new int[n][n];
-color[][] cellscolNext;
-color[][] cellscol;
 boolean ontouchedd;
 
 PImage image;  
@@ -66,26 +64,23 @@ void restart() {
   plastNum = round(random(20,50));
   botNum = round(random(1,3));
   createGUI();
-  xb = 0;
+
   
   
   image = loadImage("NA.png");
   image(image, -500, -300);
  
   ocean = new boolean[height][width];
-  Land = new boolean[height][width];
+  land = new boolean[height][width];
+  base = new boolean[height][width];
   pollution = new boolean[n][n];
-  cellscol = new color[n][n];
-  cellscolNext = new color[n][n];
-  temp = new color[n][n];
   loadPixels();
   getpix();
 
 
 
   cellSize = (width-2*padding)/n;
-  cells = new boolean[n][n];
-  cellsNext = new boolean[n][n];
+ 
   //setCellValuesRandomly();
   //setCellValuesAlternating();
   
@@ -136,23 +131,10 @@ void cMap() {
         try {     
          
           
-           if ( (Land[int((2*y+cellSize)/2)][int((2*x+cellSize)/2)])|| (Land[int(y)][int(x)]) || (Land[int(y+cellSize)][int(x)]) || (Land[int(y)][int(x+cellSize)]) || (Land[int(y+cellSize)][int(x+cellSize)]) ) {
+           if ( (land[int((2*y+cellSize)/2)][int((2*x+cellSize)/2)])|| (land[int(y)][int(x)]) || (land[int(y+cellSize)][int(x)]) || (land[int(y)][int(x+cellSize)]) || (land[int(y+cellSize)][int(x+cellSize)]) ) {
            
-            if (cellscolNext[i][j] == color(255, 165, 0)) {
-              fill(color(255, 165, 0));
+           
              
-
-              rect(x, y, cellSize, cellSize);
-            } 
-           
-            else if (cellscolNext[i][j] == color(0, 255, 0)) {
-              fill(color(0, 255, 0));
-
-
-
-              rect(x, y, cellSize, cellSize);
-             }
-             else {
            
               fill(104,189,86);
 
@@ -161,56 +143,43 @@ void cMap() {
 
 
 
-              cleanserbot[i][j] = true;
-            }
+              boundary[i][j] = true;
+        
           } else if ( (ocean[int((2*y+cellSize)/2)][int((2*x+cellSize)/2)])|| (ocean[int(y)][int(x)]) || (ocean[int(y+cellSize)][int(x)]) || (ocean[int(y)][int(x+cellSize)]) || (ocean[int(y+cellSize)][int(x+cellSize)]) ) {
          
-            if (cellscolNext[i][j] == color(255, 165, 0)) {
-              fill(color(255, 165, 0));
-
-
-              rect(x, y, cellSize, cellSize);
-            } 
            
-            //else if (cellscolNext[i][j] == color(0, 255, 0)) {
-            //  fill(color(0, 255, 0));
-
-
-
-            //  rect(x, y, cellSize, cellSize);
-            // }
-             else {
+            
               fill(0, 120, 255);                          //land
               
               rect(x, y, cellSize, cellSize);
 
              
              
-            }
+          
+          }
+           else if ( (base[int((2*y+cellSize)/2)][int((2*x+cellSize)/2)])|| (base[int(y)][int(x)]) || (base[int(y+cellSize)][int(x)]) || (base[int(y)][int(x+cellSize)]) || (base[int(y+cellSize)][int(x+cellSize)]) ) {
+         
+          
+           
+            
+          
+              fill(211, 211, 211);                          //base
+              
+              rect(x, y, cellSize, cellSize);
+
+             
+              boundary[i][j] = true;
+            
           }
         
           else {
             
-            if (cellscolNext[i][j] == color(255, 165, 0)) {
-              fill(color(255, 165, 0));
-             
-              rect(x, y, cellSize, cellSize);
-            } 
-            
-            
-           
-            else if (cellscolNext[i][j] == color(0, 255, 0)) {
-              fill(color(0, 255, 0));
-
-
-
-              rect(x, y, cellSize, cellSize);
-             }
-             else {
+          
+          
               fill(0, 0, 255);
 
               rect(x, y, cellSize, cellSize);
-            }
+            
           }
              if   (pollution[i][j] == true) {
              fill(color(128,98,90));
@@ -234,29 +203,7 @@ void ontouched() {
 
 }
 
-int countAliveNeighbours(int i, int j) {
-  int count = 0;
 
-  for (int a = -1; a <= 1; a++) {  //a=-1, a = 0, a = 1
-    for (int b = -1; b <= 1; b++) {  //b=-1, b=0,   b=1
-
-      try {
-        if (cellscol[i+a][j+b] ==  color(255, 165, 0) && !(a==0 && b==0))
-          count++;
-      }
-
-      catch( IndexOutOfBoundsException e ) {
-      }
-    }
-  }
-
-  return count;
-}
-void scrubNext() {  
-  cellscolNext = new color[n][n];
-  xSpeedsNext = new int[n][n];
-  ySpeedsNext = new int[n][n];
-}
 
 
 
@@ -272,16 +219,25 @@ void getpix() {
       if (pixels[width*i+b] == -1212415) {
 
 
-        Land[i][b] = false;
+        land[i][b] = false;
         ocean[i][b] = false;
+          base[i][b] = false;
       } else if (pixels[width*i+b] == color(255)) {
 
-        Land[i][b] = false;
+        land[i][b] = false;
         ocean[i][b] = true;
+          base[i][b] = false;
+        
       } else if (pixels[width*i+b] == color(0)) {
   
         ocean[i][b] = false;
-        Land[i][b] = true;
+        land[i][b] = true;
+          base[i][b] = false;
+      }
+      else if (pixels[width*i+b] == color(255,0,0)){
+        ocean[i][b] = false;
+        land[i][b] = false;
+        base[i][b] = true;
       }
     }
   }
@@ -356,7 +312,7 @@ else {
 if (scatteredVal.isSelected() == true) {
 for (int i=0; i<n; i++) {
   for (int j=0;j<n;j++) {
-    if (ocean[i][j] == true) {
+    if (base[i][j] == false ) {
       float rand = random(0,1);
        
        float convert = pollutionChance/500;
@@ -410,7 +366,7 @@ void resetLand() {
 
 
        //rect(x, y, cellSize, cellSize);
-      Land[i][j] = false;
+      land[i][j] = false;
       ocean[i][j] = false;
       
       
