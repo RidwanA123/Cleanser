@@ -25,15 +25,17 @@ class bot{
     this.efficiency = e;
    
    batnum = 30;
+   resetBot();
   }
   
   void resetBot(){
+    
     for (int i = 0; i<n;i++) {
       for (int j = 0; j<n;j++) {
         if (baseBlock[i][j] == true) {
           rand = random(1,3);
           if (rand >= 2){
-           this.xpos = j*9;
+          this.xpos = j*9;
           this.ypos = i*9;
           }
           
@@ -98,6 +100,7 @@ void landDetection() {
 }
 
 void detectPlastic(){
+  
    for(int i = 0; i < width; i++){
     for(int j = 0; j < height; j++){
       float ix = cellsize*i;
