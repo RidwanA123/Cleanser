@@ -96,6 +96,7 @@ else if (index == 3) {
   loadAtlanticOcean();
   loadPixels();
   getpix();
+
   Clenser.resetBot();
 
 }
