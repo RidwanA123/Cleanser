@@ -2,11 +2,7 @@ import g4p_controls.*;
 
 PImage botpic;
 
-boolean storageFull;
-
 int botNum;
-int plastNum; 
-
 
 float cellsize;
 
@@ -15,13 +11,16 @@ boolean b;
 
 boolean buttonPressed = false;
 
-
+int lastBot = 2;
 
   boolean[][] pollution;
 
 
   bot Clenser;
-
+  bot other1;
+  bot other2;
+  bot other3;
+  bot other4;
 
 int n = 100;
 float padding = 0;
@@ -57,15 +56,15 @@ void setup() {
   frameRate( CPS);
   restart();
   
-  storageFull = false;
+  Clenser = new bot(lastBot);
+  other1 = new bot(lastBot);
+  other2 = new bot(lastBot);
+  other3 = new bot(lastBot);
+  other4 = new bot(lastBot);
 }
 
 void restart() {
-  plastNum = round(random(20,50));
-  botNum = round(random(1,3));
   createGUI();
-
-  storageFull = false;
   
   image = loadImage("NA.png");
   image(image, -500, -300);
@@ -88,16 +87,29 @@ void restart() {
   //setCellValuesRandomly();
   //setCellValuesAlternating();
   cMap();
-  for (int c = 0; c < botNum; c++){
-     
-    Clenser = new bot();
-  }
+
+  
+  
  
 }
 void draw() {
   background(0, 0, 255);    
     cMap();
+  
     Clenser.moveBot();
+     //use if statemenets to make sure it goes through all possible bots
+    if (botNum >= 2){
+      other1.moveBot();    
+    }
+    if (botNum >= 3){
+      other2.moveBot();     
+    }
+    if (botNum >= 4){
+      other3.moveBot();    
+    }
+    if (botNum >= 5){
+      other4.moveBot();    
+    }
   }
 
 int x = 0;
@@ -390,10 +402,11 @@ void resetLand() {
  redraw();
 }
 void reset(){
-  storageFull = false;
-  Clenser = new bot();
-  plastNum = 0;
-  botNum = 1;
+  Clenser = new bot(lastBot);
+  other1 = new bot(lastBot);
+  other2 = new bot(lastBot);
+  other3 = new bot(lastBot);
+  other4 = new bot(lastBot);
   
   removePol();
   plasticGeneration();

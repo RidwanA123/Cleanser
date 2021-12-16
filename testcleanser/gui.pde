@@ -54,11 +54,36 @@ public void PlasticAmountClick(GSlider source, GEvent event) { //_CODE_:PlasticA
 
 public void slider_change2(GSlider source, GEvent event) { //_CODE_:CleanserStorage:536613:
   storSize = CleanserStorage.getValueF();
-  storageFull = false;
+
 } //_CODE_:CleanserStorage:536613:
 
 public void textfield1_change1(GTextField source, GEvent event) { //_CODE_:NumberOfCleanser:985657:
-   botNum = NumberOfCleanser.getValueI();
+   botNum = int(NumberOfCleanser.getText());
+   
+   if (botNum == 0){
+     botNum = 1;
+   }
+   else if (botNum > 5){
+     botNum = 5;
+   }
+   
+   if (botNum < lastBot){
+     int count = lastBot - botNum;
+     
+     for (int i = 0; i < count; i++){
+       Clenser.decreaseBot();
+     }
+   }
+   
+   else if (botNum > lastBot){
+     int count = botNum - lastBot;
+     
+     for (int i = 0; i < count; i++){
+       Clenser.increaseBot();
+     }
+   }
+   lastBot = botNum;
+   
 } //_CODE_:NumberOfCleanser:985657:
 
 public void slider1_change1(GSlider source, GEvent event) { //_CODE_:BatteryQuality:496630:
@@ -87,6 +112,7 @@ else if (index == 2) {
   loadPixels();
   getpix();
   Clenser.resetBot();
+
 }
 else if (index == 3) {
   
@@ -109,6 +135,7 @@ else {
   loadPixels();
   getpix();
   Clenser.resetBot();
+
 }
 
 

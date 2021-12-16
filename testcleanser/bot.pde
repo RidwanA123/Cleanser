@@ -1,25 +1,31 @@
-int xs = round(random(-20,20));
-int ys = round(random(-20,20));
 float batterylife;
 float storSize;
-
-float rand = 0;
+  
 class bot{
   float draining;
   float xpos;
   float ypos;
   float stored;
+  int minBot = 1; //minimum bot is always 1
   PImage img;
+  boolean storageFull;
 
+  int xs = round(random(-20,20));
+  int ys = round(random(-20,20));
+  
+
+float rand = 0;
 
   float plastored;
   float full;
 
   //constructor
-  bot(){
-   
-    this.draining = (100-batterylife)/500;
-    this.stored = (100-storSize)/10;
+  bot(int n){
+    this.minBot = n;
+    draining = (100-batterylife)/500;
+    stored = (100-storSize)/10;
+    
+    storageFull = false;
    
    full = 30;
    plastored = 2;
@@ -33,8 +39,8 @@ class bot{
         if (baseBlock[i][j] == true) {
           rand = random(1,3);
           if (rand >= 2){
-          this.xpos = j*9;
-          this.ypos = i*9;
+          xpos = j*9;
+          ypos = i*9;
           }
           
         }
@@ -141,8 +147,8 @@ void batteryLife(){
   }
   if (full <= 0){
     xpos = 1000000000;
-    botNum -= 1;
-    if (botNum <= 0){
+    Clenser.decreaseBot();
+    if (lastBot <= 0){
       text("All the bots sunk due to no battery, press restart",width/2,height/2);
       noLoop();
     }
@@ -155,5 +161,17 @@ void storage(){
   if (plastored >= full){
     storageFull = true;
   }
+}
+
+void increaseBot(){
+  if (this.minBot < 5){
+    this.minBot++;
+  }
+}
+
+void decreaseBot(){
+  if (this.minBot > 1){
+    this.minBot--;
+}
 }
 }
