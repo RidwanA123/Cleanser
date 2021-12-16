@@ -44,10 +44,11 @@ public void ResetButtonPressed(GButton source, GEvent event) { //_CODE_:Reset:60
 } //_CODE_:Reset:608023:
 
 public void PlasticAmountClick(GSlider source, GEvent event) { //_CODE_:PlasticAmount:528106:
-    removePol();
+  removePol();
   pollutionChance = PlasticAmount.getValueF();
    loop();
   reset();
+  //getpix();
 
 
 } //_CODE_:PlasticAmount:528106:
@@ -80,7 +81,7 @@ else if (index == 2) {
 
   resetLand();
   removePol();
-  
+   pollutionChance = PlasticAmount.getValueF();
   loadArcticOcean();
   loadPixels();
   getpix();
@@ -142,7 +143,7 @@ public void createGUI(){
   Reset.setLocalColorScheme(GCScheme.RED_SCHEME);
   Reset.addEventHandler(this, "ResetButtonPressed");
   PlasticAmount = new GSlider(window2, 3, 100, 100, 40, 10.0);
-  PlasticAmount.setLimits(1, 1, 60);
+  PlasticAmount.setLimits(1, 1, 100);
   PlasticAmount.setNumberFormat(G4P.INTEGER, 0);
   PlasticAmount.setOpaque(false);
   PlasticAmount.addEventHandler(this, "PlasticAmountClick");
