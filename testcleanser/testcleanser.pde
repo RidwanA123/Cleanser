@@ -5,7 +5,8 @@ PImage botpic;
 int botNum,xRepo,yRepo;
 
 float cellsize;
-
+int gencount;
+boolean mapChanged;
 float pollutionChance;
 boolean b;
 
@@ -46,7 +47,7 @@ boolean state[][];
 
 
 
-boolean ontouchedd;
+
 
 PImage image;  
 
@@ -214,13 +215,20 @@ void cMap() {
 
       y += cellSize;
     }
+    
+    
+}
+if (mapChanged) {
+  genCount++;
+  if (genCount > 8) {      //This sends the bot back to spawn everytime the map is changed
+  reset();
+  mapChanged = false;
+  }
+  
 }
 }
 
 
-void ontouched() {
-
-}
 
 
 

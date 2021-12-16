@@ -93,6 +93,7 @@ public void slider1_change1(GSlider source, GEvent event) { //_CODE_:BatteryQual
 
 public void dropList1_click1(GDropList source, GEvent event) { //_CODE_:Oceans:849723:
 int index = Oceans.getSelectedIndex();
+mapChanged = true;
 
 if (index == 1) {
   resetLand();
