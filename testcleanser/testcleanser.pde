@@ -2,7 +2,7 @@ import g4p_controls.*;
 
 PImage botpic;
 
-int botNum;
+int botNum,xRepo,yRepo;
 
 float cellsize;
 
@@ -145,7 +145,10 @@ void cMap() {
 
 
               landBlock[i][j] = true;
-              boundary[i][j] = true;
+              oceanBlock[i][j] = false;
+              baseBlock[i][j] = false;
+              boundary[i][j] = false;
+       
               
         
           } 
@@ -160,7 +163,10 @@ void cMap() {
               rect(x, y, cellSize, cellSize);
 
               baseBlock[i][j] = true;
+              landBlock[i][j] = false;
+               oceanBlock[i][j] = false;
               boundary[i][j] = true;
+               
              
             
           }else if ( (ocean[int((2*y+cellSize)/2)][int((2*x+cellSize)/2)])|| (ocean[int(y)][int(x)]) || (ocean[int(y+cellSize)][int(x)]) || (ocean[int(y)][int(x+cellSize)]) || (ocean[int(y+cellSize)][int(x+cellSize)]) ) {
@@ -170,6 +176,10 @@ void cMap() {
               fill(0, 120, 255);                          //ocean
               
               oceanBlock[i][j] = true;
+              landBlock[i][j] = false;
+           
+              baseBlock[i][j] = false;
+            
               rect(x, y, cellSize, cellSize);
        
 
@@ -191,7 +201,9 @@ void cMap() {
              if   (pollution[i][j] == true) {
              fill(color(128,98,90));
              
-
+              landBlock[i][j] = false;
+               oceanBlock[i][j] = false;
+               baseBlock[i][j] = false;
               rect(x, y, cellSize, cellSize);
            }
         }
@@ -266,6 +278,7 @@ void plasticGeneration() {
 int selectedMap = Oceans.getSelectedIndex();  
 if (selectedMap == 1) {
   for (int i=40; i<70;i++) {
+    
     for (int j=10; j<40;j++){
        float rand = random(0,1);
        
@@ -342,6 +355,7 @@ void loadIndianOcean() {
   
   image = loadImage("IndianOcean.png");
     image(image, -100, -200);
+    
 
     reset();
     Clenser.resetBot();
@@ -372,6 +386,9 @@ void loadAtlanticOcean() {
 
     reset();
     Clenser.resetBot();
+    xRepo = -400;
+    yRepo = 0;
+    
   
   
 }

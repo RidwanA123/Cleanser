@@ -78,19 +78,27 @@ float rand = 0;
   if (xs == 0 || ys == 0){
     xs = round(random(1,10));
     ys = round(random(1,10));
+   
+    
   }
   
   if (xpos < 0+padding+20){
    xs = round(random(1,10));
+  
+   
  }
  else if (xpos > width-40-padding){
    xs = round(random(-10,-1));
+
  }
  else if (ypos < 0+padding+20){
    ys = round(random(1,10));
+ 
  }
  else if (ypos > height-40-padding){
    ys = round(random(-10,-1));
+  
+  
   }
   landDetection();
 }
@@ -103,6 +111,7 @@ void landDetection() {
     
     xs = xs *-1;
     ys = ys * -1;
+   
   }}
   catch(Exception e){}
  
@@ -111,7 +120,7 @@ void landDetection() {
 void detectPlastic(){
   int xCell = round(this.xpos/ cellSize);
   int yCell = round(this.ypos/ cellSize);
-  println(xCell,yCell);
+ // println(xCell,yCell);
    
     
       try{
@@ -150,6 +159,7 @@ void batteryLife(){
     Clenser.decreaseBot();
     if (lastBot <= 0){
       text("All the bots sunk due to no battery, press restart",width/2,height/2);
+      println("All bots ded");
       noLoop();
     }
   }
