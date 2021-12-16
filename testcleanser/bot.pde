@@ -84,11 +84,12 @@ void landDetection() {
  int xCell = round(this.xpos/ cellSize);
   int yCell = round(this.ypos/ cellSize);
   println(xCell,yCell);
-  if (landBlock[yCell+3][xCell+3] == true) {
+  try{if (landBlock[yCell][xCell] == true) {
     
     xs = xs *-1;
     ys = ys * -1;
-  }
+  }}
+  catch(Exception e){}
  
 }
 

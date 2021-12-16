@@ -79,7 +79,7 @@ else if (index == 2) {
 
   resetLand();
   removePol();
-   pollutionChance = PlasticAmount.getValueF();
+  
   loadArcticOcean();
   loadPixels();
   getpix();
@@ -141,7 +141,7 @@ public void createGUI(){
   Reset.setLocalColorScheme(GCScheme.RED_SCHEME);
   Reset.addEventHandler(this, "ResetButtonPressed");
   PlasticAmount = new GSlider(window2, 3, 100, 100, 40, 10.0);
-  PlasticAmount.setLimits(1, 1, 100);
+  PlasticAmount.setLimits(1, 1, 60);
   PlasticAmount.setNumberFormat(G4P.INTEGER, 0);
   PlasticAmount.setOpaque(false);
   PlasticAmount.addEventHandler(this, "PlasticAmountClick");
