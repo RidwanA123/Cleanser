@@ -1,5 +1,5 @@
-int xs = round(random(-10,10));
-int ys = round(random(-10,10));
+int xs = round(random(-20,20));
+int ys = round(random(-20,20));
 float batterylife;
 float rand = 0;
 class bot{
@@ -65,18 +65,31 @@ class bot{
     ys = round(random(1,10));
   }
   
-  if (xpos < 0+padding){
+  if (xpos < 0+padding+20){
    xs = round(random(1,10));
  }
- else if (xpos > width-padding*2){
+ else if (xpos > width-40-padding){
    xs = round(random(-10,-1));
  }
- else if (ypos < 0+padding){
+ else if (ypos < 0+padding+20){
    ys = round(random(1,10));
  }
- else if (ypos > height-padding*2){
+ else if (ypos > height-40-padding){
    ys = round(random(-10,-1));
   }
+  landDetection();
+}
+
+void landDetection() {
+ int xCell = round(this.xpos/ cellSize);
+  int yCell = round(this.ypos/ cellSize);
+  println(xCell,yCell);
+  if (landBlock[yCell+3][xCell+3] == true) {
+    
+    xs = xs *-1;
+    ys = ys * -1;
+  }
+ 
 }
 
 void detectPlastic(){

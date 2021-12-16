@@ -24,7 +24,7 @@ boolean buttonPressed = false;
 
 int n = 100;
 float padding = 0;
-float CPS = 30;
+float CPS = 60;
 boolean[][] land, boundary,ocean,base,landBlock,oceanBlock,baseBlock;
 //land maps all cell positions of where the country will be
 //boundary sets the boundary for where plastic shoudn't be
@@ -83,6 +83,7 @@ void restart() {
 
 
   cellSize = (width-2*padding)/n;
+
  
   //setCellValuesRandomly();
   //setCellValuesAlternating();
@@ -136,20 +137,7 @@ void cMap() {
               boundary[i][j] = true;
               
         
-          } else if ( (ocean[int((2*y+cellSize)/2)][int((2*x+cellSize)/2)])|| (ocean[int(y)][int(x)]) || (ocean[int(y+cellSize)][int(x)]) || (ocean[int(y)][int(x+cellSize)]) || (ocean[int(y+cellSize)][int(x+cellSize)]) ) {
-         
-           
-            
-              fill(0, 120, 255);                          //ocean
-              
-              oceanBlock[i][j] = true;
-              rect(x, y, cellSize, cellSize);
-       
-
-             
-             
-          
-          }
+          } 
            else if ( (base[int((2*y+cellSize)/2)][int((2*x+cellSize)/2)])|| (base[int(y)][int(x)]) || (base[int(y+cellSize)][int(x)]) || (base[int(y)][int(x+cellSize)]) || (base[int(y+cellSize)][int(x+cellSize)]) ) {
          
           
@@ -164,7 +152,21 @@ void cMap() {
               boundary[i][j] = true;
              
             
+          }else if ( (ocean[int((2*y+cellSize)/2)][int((2*x+cellSize)/2)])|| (ocean[int(y)][int(x)]) || (ocean[int(y+cellSize)][int(x)]) || (ocean[int(y)][int(x+cellSize)]) || (ocean[int(y+cellSize)][int(x+cellSize)]) ) {
+         
+           
+            
+              fill(0, 120, 255);                          //ocean
+              
+              oceanBlock[i][j] = true;
+              rect(x, y, cellSize, cellSize);
+       
+
+             
+             
+          
           }
+          
         
           else {
             
@@ -327,12 +329,12 @@ for (int i=0; i<n; i++) {
 void loadIndianOcean() {
  
   
-  image = loadImage("IndianOcean.jpg");
+  image = loadImage("IndianOcean.png");
     image(image, -100, -200);
   
 }
 void loadArcticOcean() {
-  image = loadImage("ArcticOcean.jpg");
+  image = loadImage("ArcticOcean.png");
     image(image, -200, -500);
   
 }
@@ -342,7 +344,7 @@ void loadPacificOcean() {
   
 }
 void loadAtlanticOcean() {
-  image = loadImage("AtlanticOcean.jpg");
+  image = loadImage("AtlanticOcean.png");
     image(image, 0, 0);
     
   
@@ -360,8 +362,13 @@ void resetLand() {
 
 
        //rect(x, y, cellSize, cellSize);
+        oceanBlock = new boolean[n][n];
+        landBlock = new boolean[n][n];
+        baseBlock = new boolean[n][n];
       land[i][j] = false;
       ocean[i][j] = false;
+      base[i][j] = false;
+      
       
       
     }

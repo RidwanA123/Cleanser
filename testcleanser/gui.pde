@@ -72,6 +72,7 @@ if (index == 1) {
   removePol();
    pollutionChance = PlasticAmount.getValueF();
   loadIndianOcean();
+  loadPixels();
   getpix();
 }
 else if (index == 2) {
@@ -80,6 +81,7 @@ else if (index == 2) {
   removePol();
    pollutionChance = PlasticAmount.getValueF();
   loadArcticOcean();
+  loadPixels();
   getpix();
 }
 else if (index == 3) {
@@ -89,6 +91,7 @@ else if (index == 3) {
  
    pollutionChance = PlasticAmount.getValueF();
   loadAtlanticOcean();
+  loadPixels();
   getpix();
 
 }
@@ -97,6 +100,7 @@ else {
   removePol();
    pollutionChance = PlasticAmount.getValueF();
   loadPacificOcean();
+  loadPixels();
   getpix();
 }
 
