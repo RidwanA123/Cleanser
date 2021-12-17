@@ -143,12 +143,7 @@ else {
 } //_CODE_:Oceans:849723:
 
 public void checkbox1_clicked1(GCheckbox source, GEvent event) { //_CODE_:efficiencyCheckbox:302654:
-  if (efficiencyCheckbox.isSelected()){
-    efficient = true;
-  }
-  else {
-    efficient = false;
-  }
+   reset();
 } //_CODE_:efficiencyCheckbox:302654:
 
 public void checkbox2_clicked1(GCheckbox source, GEvent event) { //_CODE_:scatteredVal:486988:

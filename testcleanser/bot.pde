@@ -1,6 +1,6 @@
 float batterylife;
 float storSize;
-boolean efficient = false;  
+  
 class bot{
   float draining;
   float xpos;
@@ -13,14 +13,6 @@ class bot{
   int xs = round(random(-20,20));
   int ys = round(random(-20,20));
   
-  float iPlastic, jPlastic;
-  float iDelta, jDelta;
-  float iBot, jBot;
-  float xSpeed = 1;
-  float ySpeed = 1;
-  float xSpeedReverse = -1;
-  float ySpeedReverse = -1;
-  boolean xMove, yMove;
 
 float rand = 0;
 
@@ -58,94 +50,47 @@ float rand = 0;
     full = 30;
     plastored = 2;
   }
-  
-  void setRandomTarget() {
-  boolean foundTarget = false;
-  int i=0, j=0;
-
-  while ( !foundTarget ) {
-    i = int(random(0, n));
-    j = int(random(0, n));
-
-    if (pollution[i][j] == false){
-      foundTarget = false;
+  void moveBot(){
+    if (storageFull == false){
+      this.detectPlastic();
     }
-   
+    this.storage();
+    this.batteryLife();
+    if (efficiencyCheckbox.isSelected()) {
+     
+        if (xMove == false && yMove == false){ 
+     randomPlastic();     
+     xMove = true;
+     yMove = true;
+ }
+       if (xs > 0 && abs(xs) > abs(ys)){
+      botpic = loadImage("clenser right-1.png.png");
+    }
+    else if (xs < 0 && abs(xs) > abs(ys)){
+      botpic = loadImage("clenser left-1.png.png");
+    }
+    else if (ys > 0 && abs(ys) > abs(xs)){
+      botpic = loadImage("clenser front-1.png.png");
+    }
     else {
-      foundTarget = true;
-
-      iPlastic = round(cellSize*i);
-      jPlastic = round(cellSize*j);
+      botpic = loadImage("clenser back-1.png.png");
     }
-  }
-}
   
-  void goodMove(){
-     if (round(xpos) <= round(jPlastic) && round(xpos) >= round(jPlastic)) {
-    xMove = false;
-  }
-
-  if (round(ypos) <= round(iPlastic) && round(ypos) >= round(iPlastic)) {
-    yMove = false;
-  }
+  image(botpic, this.xpos, this.ypos);
   
-   if (xMove == true) {    
+  //xpos += xs;
+  //ypos += ys;
+  if (xMove == true) {    
   BotMovementInXDirection();
 }
 
 if (yMove == true) {
   BotMovementInYDirection();
 }
-  }
+ landDetection();
   
-  void BotMovementInXDirection() {
-
-  iDelta = round(jPlastic) - round(xpos);  
-   
-  if (iDelta>0){
-  xSpeed = xs*1;
-  }
- 
-  if (iDelta<0){
- 
-  xSpeed = xs*-1;
-  }
- 
-  if (iDelta == 0){
-   xSpeed = 0;
-  }
-}
-
-
-
-  void BotMovementInYDirection() {
-    jDelta = round(iPlastic) - round(ypos);
-   
-      if (jDelta<0) {
-
-      ySpeed = ys*-1;
     }
-   
-    else if (jDelta>0) {
-
-      ySpeed = ys*1;
-    }
-   
-    else {
-      ySpeed = 0;
-    }
-   
-  ypos += ySpeed;
-  }
-  void moveBot(){
-    if (efficient == true){
-      goodMove();
-    }
-    if (storageFull == false){
-      detectPlastic();
-    }
-    storage();
-    batteryLife();
+    else{
     
     if (xs > 0 && abs(xs) > abs(ys)){
       botpic = loadImage("clenser right-1.png.png");
@@ -160,7 +105,7 @@ if (yMove == true) {
       botpic = loadImage("clenser back-1.png.png");
     }
   
-  image(botpic, xpos, ypos);
+  image(botpic, this.xpos, this.ypos);
   
   xpos += xs;
   ypos += ys;
@@ -191,25 +136,103 @@ if (yMove == true) {
   
   }
   landDetection();
+    }
 }
+void BotMovementInXDirection() {
+  int xCell = round(this.xpos/ cellSize);
 
+   iDelta = targetX - xCell;  
+   println(targetX,xCell,iDelta);
+   
+  if (iDelta>0){
+  xpos = xpos + xs;
+  }
+ 
+  if (iDelta<0){
+ 
+ xpos = xpos -xs;
+  }
+ 
+  if (iDelta == 0){
+   println("stop");
+  }
+}
+void BotMovementInYDirection() {
+ //   int yCell = round(this.ypos/ cellSize);
+ //   jDelta = targetY - yCell;  
+   
+ // if (jDelta>0){
+ // ypos = ypos + ys;
+ // }
+ 
+ // if (jDelta<0){
+ 
+ //ypos = ypos -ys;
+ // }
+ 
+ // if (jDelta == 0){
+ //  ypos = 0;
+ // }
+}
 void landDetection() {
- int xCell = round(xpos/ cellSize);
-  int yCell = round(ypos/ cellSize);
+ int xCell = round(this.xpos/ cellSize);
+  int yCell = round(this.ypos/ cellSize);
  
   try{if (landBlock[yCell][xCell] == true) {
     
     xs = xs *-1;
     ys = ys * -1;
+     randomPlastic(); 
    
   }}
   catch(Exception e){}
  
 }
+void randomPlastic() {
+    
+    boolean foundTarget = false;
+  int i=0, j=0;
 
+  while ( !foundTarget ) {
+    i = int(random(0, n));
+    j = int(random(0, n));
+
+    if (pollution[i][j]){
+      foundTarget = true;
+      target[i][j] = true; 
+      targetX = i;
+      targetY = j;
+      println(i,j);
+      
+    }
+    
+    else if ( oceanBlock[i][j] || landBlock[i][j] || baseBlock[i][j]) {
+       foundTarget = false;
+      target[i][j] = false;
+    }
+  }
+}
 void detectPlastic(){
-  int xCell = round(xpos/ cellSize);
-  int yCell = round(ypos/ cellSize);
+  int xCell = round(this.xpos/ cellSize);
+  int yCell = round(this.ypos/ cellSize);
+    boolean foundTarget = false;
+  int i=0, j=0;
+
+  while ( !foundTarget ) {
+    i = int(random(0, 100));
+    j = int(random(0, 100));
+
+    if (pollution[i][j]){
+      foundTarget = true;
+      target[i][j] = true;  
+      
+    }
+    
+    else if ( oceanBlock[i][j] || landBlock[i][j] || baseBlock[i][j]) {
+       foundTarget = false;
+      target[i][j] = false;
+    }
+  }
  // println(xCell,yCell);
    
     
@@ -245,10 +268,12 @@ void batteryLife(){
     full -= draining;
   }
   if (full <= 0){
-    xpos = 1000000000; //moves bot far away from the screen (out of site, out of mind)
-    this.decreaseBot(); //function that decreases bot count
-    if (lastBot <= 0){ //if the last bot drowns, a message is sent
-      println("All the bots sunk due to no battery, press restart");
+    xpos = 1000000000;
+    Clenser.decreaseBot();
+    if (lastBot <= 0){
+      text("All the bots sunk due to no battery, press restart",width/2,height/2);
+      println("All bots ded");
+      noLoop();
     }
   }
 }
@@ -256,18 +281,18 @@ void storage(){
   fill(255,165,0);
   rect(xpos,ypos+40,plastored,3);
   
-  if (plastored >= full){ //if plastic meter full, a boolean is activated that prevents bot from consuming plastic
+  if (plastored >= full){
     storageFull = true;
   }
 }
 
-void increaseBot(){//allows me to increase botNum globally
+void increaseBot(){
   if (this.minBot < 5){
     this.minBot++;
   }
 }
 
-void decreaseBot(){ //allows me to lower botNum globally
+void decreaseBot(){
   if (this.minBot > 1){
     this.minBot--;
 }

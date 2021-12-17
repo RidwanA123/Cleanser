@@ -5,10 +5,10 @@ PImage botpic;
 int botNum,xRepo,yRepo;
 
 float cellsize;
-int gencount;
+int gencount,targetX,targetY;
 boolean mapChanged;
-float pollutionChance;
-boolean b;
+float pollutionChance,iDelta,jDelta;
+boolean b,xMove,yMove;
 
 boolean buttonPressed = false;
 
@@ -26,7 +26,7 @@ int lastBot = 2;
 int n = 100;
 float padding = 0;
 float CPS = 60;
-boolean[][] land, boundary,ocean,base,landBlock,oceanBlock,baseBlock;
+boolean[][] land, boundary,ocean,base,landBlock,oceanBlock,baseBlock,target;
 //land maps all cell positions of where the country will be
 //boundary sets the boundary for where plastic shoudn't be
 //ocean sets the cell states of where the ocean will be
@@ -77,6 +77,7 @@ void restart() {
   landBlock = new boolean[n][n];
   baseBlock = new boolean[n][n];
   pollution = new boolean[n][n];
+  target = new boolean[n][n];
   loadPixels();
   getpix();
 
