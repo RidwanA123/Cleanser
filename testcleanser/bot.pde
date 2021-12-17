@@ -56,17 +56,18 @@ float rand = 0;
       this.detectPlastic();//detects plastic function becaus storage is not full
     }
     else{
-      resetBot();
-    }
+      resetBot(); //sends bots back to base when storage is full
+    }//rewards bots with free battery, when storage is full, punishment by for not collecting enough storage is letting the bot drown
     this.storage();
     this.batteryLife();
-    if (efficiencyCheckbox.isSelected()) {
+    if (efficiencyCheckbox.isSelected()) { //this code runs only when efficiency is checked
      
-        if (xMove == false && yMove == false){ 
+        if (xMove == false && yMove == false){ //finds new targets when previous plastic is caught
      randomPlastic();     
      xMove = true;
      yMove = false;
  }
+ //this series of codes will be found again, it loads the appropriate image depending on where the bot is going
        if (xs > 0 && abs(xs) > abs(ys)){
       botpic = loadImage("clenser right-1.png.png");
     }
@@ -80,24 +81,24 @@ float rand = 0;
       botpic = loadImage("clenser back-1.png.png");
     }
   
-  image(botpic, this.xpos, this.ypos);
+  image(botpic, this.xpos, this.ypos); //creates the bot with images set
   
   //xpos += xs;
-  //ypos += ys;
+  
   if (xMove == true) {    
   BotMovementInXDirection();
 }
-
+//ypos += ys;
 if (yMove == true) {
   BotMovementInYDirection();
 }
- landDetection();
+ landDetection(); //function to avoid land
   
     }
-    else{
+    else{ //this code activates when efficiency is off
     
     if (xs > 0 && abs(xs) > abs(ys)){
-      botpic = loadImage("clenser right-1.png.png");
+      botpic = loadImage("clenser right-1.png.png"); //similar to above ^^
     }
     else if (xs < 0 && abs(xs) > abs(ys)){
       botpic = loadImage("clenser left-1.png.png");
@@ -109,19 +110,19 @@ if (yMove == true) {
       botpic = loadImage("clenser back-1.png.png");
     }
   
-  image(botpic, this.xpos, this.ypos);
+  image(botpic, this.xpos, this.ypos); 
   
   xpos += xs;
   ypos += ys;
   
   if (xs == 0 || ys == 0){
     xs = round(random(1,10));
-    ys = round(random(1,10));
+    ys = round(random(1,10)); //ensures robot is constantly moving
    
     
   }
   
-  if (xpos < 0+padding+20){
+  if (xpos < 0+padding+20){ //these parameters make sure the robot doesn't leave the edge when inefficient
    xs = round(random(1,10));
   
    
@@ -142,10 +143,10 @@ if (yMove == true) {
   landDetection();
     }
 }
-void BotMovementInXDirection() {
+void BotMovementInXDirection() { //xs formula for efficient tracking
   int xCell = round(this.xpos/ cellSize);
 
-   iDelta = targetY - xCell;  
+   iDelta = targetY - xCell;  //finds the difference between target, and bot location
    println(targetX,xCell,iDelta);
    
   if (iDelta>0){
@@ -157,14 +158,14 @@ void BotMovementInXDirection() {
  xpos = xpos -xs;
   }
  
-  if (iDelta == 0||iDelta == -1||iDelta == 1){
+  if (iDelta == 0||iDelta == -1||iDelta == 1){ //if difference is miniscule, then movement is disabled
    xMove = false;
    yMove = true;
   }
 }
-void BotMovementInYDirection() {
+void BotMovementInYDirection() { //ys formula for efficient tracking
     int yCell = round(this.ypos/ cellSize);
-    jDelta = targetX - yCell;  
+    jDelta = targetX - yCell;  //finds the difference between target, and bot location
    
   if (jDelta>0){
   ypos = ypos + ys;
@@ -175,20 +176,20 @@ void BotMovementInYDirection() {
  ypos = ypos -ys;
   }
  
-  if (jDelta == 0||jDelta == -1||jDelta == 1){
+  if (jDelta == 0||jDelta == -1||jDelta == 1){//if difference is miniscule, then movement is disabled
    xMove = false;
    yMove = false;
   }
 }
 void landDetection() {
- int xCell = round(this.xpos/ cellSize);
+ int xCell = round(this.xpos/ cellSize); //converts xposition of bot, to cell
   int yCell = round(this.ypos/ cellSize);
  
-  try{if (landBlock[yCell][xCell] == true) {
+  try{if (landBlock[yCell][xCell] == true) { //bots leave screen when dead so try statement is important to make sure program doesn't crash
     
     xs = xs *-1;
     ys = ys * -1;
-     randomPlastic(); 
+     randomPlastic(); //function for randomizing plastic
    
    
   }}
@@ -201,10 +202,10 @@ void randomPlastic() {
   int i=0, j=0;
 
   while ( !foundTarget ) {
-    i = int(random(0, n));
+    i = int(random(0, n));//finds a random i,j cell to target 
     j = int(random(0, n));
 
-    if (pollution[i][j]){
+    if (pollution[i][j]){ //if random perameter is true, then target is locked
       foundTarget = true;
       target[i][j] = true; 
       targetX = i;
@@ -213,14 +214,14 @@ void randomPlastic() {
       
     }
     
-    else if ( oceanBlock[i][j] || landBlock[i][j] || baseBlock[i][j]) {
+    else if ( oceanBlock[i][j] || landBlock[i][j] || baseBlock[i][j]) { //if it's not plastic, it cannot be targeted
        foundTarget = false;
       target[i][j] = false;
     }
   }
 }
-void detectPlastic(){
-  int xCell = round(this.xpos/ cellSize);
+void detectPlastic(){ //function for my bot to consume plastic
+  int xCell = round(this.xpos/ cellSize); //x location to cell conversion
   int yCell = round(this.ypos/ cellSize);
     boolean foundTarget = false;
   int i=0, j=0;
@@ -244,16 +245,16 @@ void detectPlastic(){
    
     
       try{
-      if (pollution[yCell-1][xCell-1] == true || pollution[yCell][xCell] == true || pollution[yCell+1][xCell+1] == true){
+      if (pollution[yCell-1][xCell-1] == true || pollution[yCell][xCell] == true || pollution[yCell+1][xCell+1] == true){ // if bot near pollution vicinity
         
         pollution[yCell-1][xCell-1] = false;
-        pollution[yCell][xCell] = false;
+        pollution[yCell][xCell] = false;    //area no longer polluted
         pollution[yCell+1][xCell+1] = false;
            fill(0, 120, 255);                          //ocean
               
            oceanBlock[yCell][xCell] = true;
             rect(xCell, yCell, cellSize, cellSize);
-       plastored += stored;
+       plastored += stored; //storage bar increases meaning it is more full
        
   }
       }
@@ -267,16 +268,16 @@ void batteryLife(){
   
   fill(0,255,0);
   
-  rect(xpos,ypos-3,full,3);
+  rect(xpos,ypos-3,full,3); //visualise battery
   
   int s = second(); //Tracks time from 0s-59s
   
-  if (s%2 == 0){
+  if (s%2 == 0){  //every 2 seconds the battery drains by draining formula above^^
     full -= draining;
   }
   if (full <= 0){
-    xpos = 1000000000;
-    Clenser.decreaseBot();
+    xpos = 1000000000; // when battery empty, bot goes outside of screen
+    Clenser.decreaseBot(); //botcount goes down
     if (lastBot <= 0){
       text("All the bots sunk due to no battery, press restart",width/2,height/2);
       println("All bots ded");
@@ -286,20 +287,20 @@ void batteryLife(){
 }
 void storage(){
   fill(255,165,0);
-  rect(xpos,ypos+40,plastored,3);
+  rect(xpos,ypos+40,plastored,3);  //visualise storage
   
-  if (plastored >= full){
+  if (plastored >= full){ //storageFull = true when meter is full
     storageFull = true;
   }
 }
 
-void increaseBot(){
+void increaseBot(){ //increases minimum bot number for Cleanser Amount
   if (this.minBot < 5){
     this.minBot++;
   }
 }
 
-void decreaseBot(){
+void decreaseBot(){ //decreases minimum bot number for Cleanser Amount
   if (this.minBot > 1){
     this.minBot--;
 }
