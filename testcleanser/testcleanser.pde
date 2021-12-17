@@ -1,32 +1,39 @@
 //Main Class
 import g4p_controls.*;
 
-PImage botpic;
+PImage botpic; //gobal variable for each bot picture, because they constantly change in different functions
 
-int botNum,xRepo,yRepo;
+int botNum; //amount of bots, changable by user selection, global since all tabs utilize this
 
-float cellsize;
-int gencount,targetX,targetY;
-boolean mapChanged;
-float pollutionChance,iDelta,jDelta;
-boolean b,xMove,yMove;
+float cellsize; //cellsize, global since all tabs utilize this 
+int gencount;
 
-boolean buttonPressed = false;
+boolean mapChanged; //boolean, allows maps to change if true
+float pollutionChance; //pollution chance changes the probability of plastic generating
 
-int lastBot = 2;
+int targetX,targetY; //the location of the plastic target the bots catch, used in efficient bot
+float iDelta,jDelta; //the difference between targetX,targetY, and xposition and yposition, used in efficient bot
+
+boolean b;
+
+boolean xMove,yMove; //prevents bot to move in x or y if false, used in efficient bot.
+
+boolean buttonPressed = false; //allows us to switch between "pause" and "resume"
+
+int lastBot = 2; //lastbot used in Number of Cleansers part of the GUI
 
   boolean[][] pollution;
 
 
-  bot Clenser;
+  bot Clenser;    //globalises all bots so I don't have to add bot to everything
   bot other1;
   bot other2;
   bot other3;            
   bot other4;
 
-int n = 100;
-float padding = 0;
-float CPS = 60;
+int n = 100; //number of cells
+float padding = 0; //padding
+float CPS = 60;  //framerate
 boolean[][] land, boundary,ocean,base,landBlock,oceanBlock,baseBlock,target;
 //land maps all cell positions of where the country will be
 //boundary sets the boundary for where plastic shoudn't be
@@ -37,28 +44,23 @@ boolean[][] land, boundary,ocean,base,landBlock,oceanBlock,baseBlock,target;
 
 
 float cellSize;
-float[][] plasticX = new float[n][n];
+float[][] plasticX = new float[n][n]; //new float variable for plastic, instead of boolean. Makes it easier for bots to detect x and y, instead of colours
 float[][] plasticY = new float[n][n];
 
 
 
-int genCount = 0;
-
-boolean state[][];
-
-
-
+int genCount = 0; 
 
 
 PImage image;  
 
 void setup() {
-  noStroke();
-  size(1000, 700);   
-  frameRate( CPS);
-  restart();
+  noStroke(); //removes ugly borders between cells
+  size(1000, 700); //screen size
+  frameRate( CPS); //frameRate variable
+  restart();                          //restart function called in setup since it seeems cleaner than to define new booleans twice
   
-  Clenser = new bot(lastBot);
+  Clenser = new bot(lastBot);        //all new bots spawn, whether there used is dependant on user selection
   other1 = new bot(lastBot);
   other2 = new bot(lastBot);
   other3 = new bot(lastBot);
@@ -66,12 +68,12 @@ void setup() {
 }
 
 void restart() {
-  createGUI();
+  createGUI();  //gui is created (refer to gui tab)
   
   image = loadImage("NA.png");
   image(image, -500, -300);
  
-  ocean = new boolean[height][width];
+  ocean = new boolean[height][width];  //defines each cell boolean as a new value whe restarting
   land = new boolean[height][width];
   base = new boolean[height][width];
   oceanBlock = new boolean[n][n];
@@ -84,7 +86,7 @@ void restart() {
 
 
 
-  cellSize = (width-2*padding)/n;
+  cellSize = (width-2*padding)/n;  //cellsize formula
 
  
   //setCellValuesRandomly();
@@ -102,35 +104,30 @@ void draw() {
     Clenser.moveBot();
      //use if statemenets to make sure it goes through all possible bots
     if (botNum >= 2){
-      other1.moveBot();    
+      other1.moveBot();    //if user selects atleast 2 bots then the second one spawns
     }
-    if (botNum >= 3){
+    if (botNum >= 3){      //if user selects atleast 3 bots then the third one spawns
       other2.moveBot();     
     }
-    if (botNum >= 4){
+    if (botNum >= 4){      //if user selects atleast 4 bots then the fourth one spawns
       other3.moveBot();    
     }
-    if (botNum >= 5){
+    if (botNum >= 5){      //if user selects atleast 5 bots then the final one spawns
       other4.moveBot();    
     }
   }
 
-int x = 0;
-boolean savestate;
-void savestates() {
-              
-}
 
 
-void cMap() {  
-  float y = padding;
+void cMap() {  //this function draws the map
+  float y = padding; //basic cell work, y value increases after forloop
   if (true) {
 
-    for (int i=0; i<n; i++) {
+    for (int i=0; i<n; i++) { //for loop for width
 
-      for (int j=0; j<n; j++) {
+      for (int j=0; j<n; j++) { //for loop for length
 
-        float x = padding + j*cellSize;
+        float x = padding + j*cellSize; //converting cells into an x value
 
 
         try {     
@@ -141,14 +138,14 @@ void cMap() {
            
              
            
-              fill(104,189,86);                      //land
+              fill(104,189,86);                      //land colour
 
-              rect(x, y, cellSize, cellSize);
+              rect(x, y, cellSize, cellSize);        // land cell creation
               
 
 
               landBlock[i][j] = true;
-              oceanBlock[i][j] = false;
+              oceanBlock[i][j] = false;            //gives boolean values to pixels, all is false but land
               baseBlock[i][j] = false;
               boundary[i][j] = false;
        
@@ -161,13 +158,13 @@ void cMap() {
            
             
           
-              fill(211, 211, 211);                          //base
+              fill(211, 211, 211);                          //base colour
               
-              rect(x, y, cellSize, cellSize);
+              rect(x, y, cellSize, cellSize);               //base cell creation
 
               baseBlock[i][j] = true;
               landBlock[i][j] = false;
-               oceanBlock[i][j] = false;
+               oceanBlock[i][j] = false;                  //gives boolean values to pixels, all is false but base and boundary
               boundary[i][j] = true;
                
              
@@ -176,14 +173,14 @@ void cMap() {
          
            
             
-              fill(0, 120, 255);                          //ocean
+              fill(0, 120, 255);                          //ocean colour
               
               oceanBlock[i][j] = true;
-              landBlock[i][j] = false;
+              landBlock[i][j] = false;                    //gives boolean values to pixels, all is false but ocean
            
               baseBlock[i][j] = false;
             
-              rect(x, y, cellSize, cellSize);
+              rect(x, y, cellSize, cellSize);              // ocean cell creation
        
 
              
@@ -238,7 +235,7 @@ if (mapChanged) {
 
 
 
-void getpix() {
+void getpix() { //this function converts the image into pixels by giving boolean values depending on if the pixel is using the land, ocean, or base, in the map
   loadPixels();
   for (int i = 0; i < height; i++) {
     for (int b = 0; b < width; b++) {
@@ -282,13 +279,13 @@ void getpix() {
  
 void plasticGeneration() {
   
+   //Below is the plastic patch generation for different maps
   
+
   
- //Below is the plastic patch generation for different maps
-  
-int selectedMap = Oceans.getSelectedIndex();  
+int selectedMap = Oceans.getSelectedIndex(); // changes the plastic generation for each selectable map
 if (selectedMap == 1) {
-  for (int i=40; i<70;i++) {
+  for (int i=40; i<70;i++) { //pacific
     
     for (int j=10; j<40;j++){
        float rand = random(0,1);
@@ -300,7 +297,7 @@ if (selectedMap == 1) {
   }
   }
 }
-else if (selectedMap == 2) {
+else if (selectedMap == 2) { //indian
   for (int i=10; i<40;i++) {
     for (int j=20; j<50;j++){
        float rand = random(0,1);
@@ -312,7 +309,7 @@ else if (selectedMap == 2) {
   }
   }
 }
-else if (selectedMap == 3) {
+else if (selectedMap == 3) {  //arctic
   for (int i=10; i<40;i++) {
     for (int j=60; j<90;j++){
        float rand = random(0,1);
@@ -324,7 +321,7 @@ else if (selectedMap == 3) {
   }
   }
 }
-else {
+else { //atlantic
    for (int i=40; i<70;i++) {
     for (int j=20; j<50;j++){
        float rand = random(0,1);
@@ -340,7 +337,7 @@ else {
 }
 
 //Below is the random plastic generation scattered all over the ocean
-if (scatteredVal.isSelected() == true) {
+if (scatteredVal.isSelected() == true) { 
 for (int i=0; i<n; i++) {
   for (int j=0;j<n;j++) {
     if (base[i][j] == false ) {
@@ -364,16 +361,16 @@ for (int i=0; i<n; i++) {
 void loadIndianOcean() {
  
   
-  image = loadImage("IndianOcean.png");
+  image = loadImage("IndianOcean.png"); //indian ocean image 
     image(image, -100, -200);
     
 
-    reset();
+    reset(); //when selected, all values reset
     Clenser.resetBot();
     
   
 }
-void loadArcticOcean() {
+void loadArcticOcean() { //arctic ocean image
   image = loadImage("ArcticOcean.png");
     image(image, -200, -500);
   
@@ -381,7 +378,7 @@ void loadArcticOcean() {
     Clenser.resetBot();
   
 }
-void loadPacificOcean() {
+void loadPacificOcean() { //pacific ocean image
   image = loadImage("NA.png");
     image(image, -480, -200);
      
@@ -389,7 +386,7 @@ void loadPacificOcean() {
       Clenser.resetBot();
   
 }
-void loadAtlanticOcean() {
+void loadAtlanticOcean() {//atlantic ocean image
   
 
   image = loadImage("AtlanticOcean.png");
@@ -397,17 +394,16 @@ void loadAtlanticOcean() {
 
     reset();
     Clenser.resetBot();
-    xRepo = -400;
-    yRepo = 0;
+
     
   
   
 }
 void initializeMap() {
-  image = loadImage("initializer.jpg");
+  image = loadImage("initializer.jpg"); //this map opens before the other maps, so that the cell generation doesn't get buggy
   image(image,0,0);
 }
-void resetLand() {
+void resetLand() {  //resets all cell values of map
   for (int i = 0; i <n; i++) {
     for (int j = 0; j<n;j++) {
        //float x = padding + j*cellSize;
@@ -429,7 +425,7 @@ void resetLand() {
 }
  redraw();
 }
-void reset(){
+void reset(){  //resets all values || different function than land because we need to differentiate between someone pressing restart, and someone choosing a different map
   for (int i=0;i<n;i++){
     for(int j =0;j<n;j++){
       target[i][j] = false;
@@ -448,7 +444,7 @@ void reset(){
  
 }
 
-void removePol(){
+void removePol(){  //removes pollution 
   for(int i = 0; i < n; i++){
     for(int j = 0; j < n; j++){
      pollution[i][j] = false;

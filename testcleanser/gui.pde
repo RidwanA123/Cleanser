@@ -20,82 +20,83 @@ synchronized public void win_draw1(PApplet appc, GWinData data) { //_CODE_:windo
 
 public void pauseButtonPressed(GButton source, GEvent event) { //_CODE_:pauseButton:933206:
 
-  if (buttonPressed == false){
+  if (buttonPressed == false){ //if when we pressed the button, it had not yet pressed
    
-    noLoop();
-    buttonPressed = true;
-    pauseButton.setText("Resume");
+    noLoop(); //pauses 
+    buttonPressed = true;  //record that we pressed it
+    pauseButton.setText("Resume"); //button changes to resume
   }
 
   else{
    
-    loop();
-    buttonPressed = false;
-    pauseButton.setText("Pause");
+    loop(); //resumes
+    buttonPressed = false; //record the button has returned to its previous value
+    pauseButton.setText("Pause"); //button changes to pause
    
   }
 } //_CODE_:pauseButton:933206:
 
 public void ResetButtonPressed(GButton source, GEvent event) { //_CODE_:Reset:608023:
-  loop();
-  reset();
+  loop(); //reloop incase someone paused then restarted
+  reset();  //reset function in main
   //restart();
 
 } //_CODE_:Reset:608023:
 
 public void PlasticAmountClick(GSlider source, GEvent event) { //_CODE_:PlasticAmount:528106:
-    removePol();
-  pollutionChance = PlasticAmount.getValueF();
+    removePol(); //removes initial pollution
+  pollutionChance = PlasticAmount.getValueF(); //changes pollution chance
    loop();
-  reset();
+  reset(); //resetting changes plastic amount. Done to discourage people from changing it while bot is making progress
 
 
 } //_CODE_:PlasticAmount:528106:
 
 public void slider_change2(GSlider source, GEvent event) { //_CODE_:CleanserStorage:536613:
-  storSize = CleanserStorage.getValueF();
+  storSize = CleanserStorage.getValueF(); //storage size of the bot (refer to bot tab)
 
 } //_CODE_:CleanserStorage:536613:
 
 public void textfield1_change1(GTextField source, GEvent event) { //_CODE_:NumberOfCleanser:985657:
-   botNum = int(NumberOfCleanser.getText());
+   botNum = int(NumberOfCleanser.getText()); //changes amount of bots 
    
-   if (botNum == 0){
+   if (botNum == 0){ //makes sure you can never have anything less than 1
      botNum = 1;
    }
-   else if (botNum > 5){
+   else if (botNum > 5){ //makes sure you can never have anything more than 5
      botNum = 5;
    }
    
    if (botNum < lastBot){
      int count = lastBot - botNum;
      
-     for (int i = 0; i < count; i++){
+     for (int i = 0; i < count; i++){  //if botNum is lower than lastBot, function in bot tab is called
        Clenser.decreaseBot();
      }
    }
    
-   else if (botNum > lastBot){
+   else if (botNum > lastBot){        //if botNum is higher than lastBot, function in bot tab is called
      int count = botNum - lastBot;
      
      for (int i = 0; i < count; i++){
        Clenser.increaseBot();
      }
    }
-   lastBot = botNum;
+   lastBot = botNum;            //at the end, LastBot = botNum allows program to remove bots should someone put a lower value then their previous one
    
 } //_CODE_:NumberOfCleanser:985657:
 
 public void slider1_change1(GSlider source, GEvent event) { //_CODE_:BatteryQuality:496630:
-  batterylife = BatteryQuality.getValueF();
-  Clenser.batteryLife();
+  batterylife = BatteryQuality.getValueF(); //alters batteryLife depending on user settings
+  Clenser.batteryLife(); //batteryLife function in bot tab
 } //_CODE_:BatteryQuality:496630:
 
-public void dropList1_click1(GDropList source, GEvent event) { //_CODE_:Oceans:849723:
-int index = Oceans.getSelectedIndex();
-mapChanged = true;
+public void dropList1_click1(GDropList source, GEvent event) { //_CODE_:Oceans:849723: //allows for the change of map
+int index = Oceans.getSelectedIndex(); //each part of the droplist has an index
 
-if (index == 1) {
+mapChanged = true; //map change becomes true
+
+if (index == 1) { //parameters change if index 1 is selected
   efficiencyCheckbox.moveTo(126,500);
   resetLand();
   removePol();
@@ -105,7 +106,7 @@ if (index == 1) {
   getpix();
   Clenser.resetBot();
 }
-else if (index == 2) {
+else if (index == 2) {//parameters change if index 2 is selected
   efficiencyCheckbox.moveTo(126,500);
   
 resetLand();
@@ -129,7 +130,7 @@ resetLand();
   Clenser.resetBot();
 
 }
-else if (index == 3) {
+else if (index == 3) {//parameters change if index 3 is selected
     efficiencyCheckbox.moveTo(126,152);
   resetLand();
   removePol();
@@ -142,7 +143,7 @@ else if (index == 3) {
   Clenser.resetBot();
 
 }
-else {
+else {//parameters change if index 0 is selected
     efficiencyCheckbox.moveTo(126,152);
   resetLand();
   removePol();
