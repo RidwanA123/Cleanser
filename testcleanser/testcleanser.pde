@@ -1,3 +1,4 @@
+//Main Class
 import g4p_controls.*;
 
 PImage botpic;
@@ -20,7 +21,7 @@ int lastBot = 2;
   bot Clenser;
   bot other1;
   bot other2;
-  bot other3;
+  bot other3;            
   bot other4;
 
 int n = 100;
