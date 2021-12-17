@@ -142,9 +142,14 @@ else {
 
 } //_CODE_:Oceans:849723:
 
-public void checkbox1_clicked1(GCheckbox source, GEvent event) { //_CODE_:efficiency:302654:
-  println("checkbox1 - GCheckbox >> GEvent." + event + " @ " + millis());
-} //_CODE_:efficiency:302654:
+public void checkbox1_clicked1(GCheckbox source, GEvent event) { //_CODE_:efficiencyCheckbox:302654:
+  if (efficiencyCheckbox.isSelected()){
+    efficient = true;
+  }
+  else {
+    efficient = false;
+  }
+} //_CODE_:efficiencyCheckbox:302654:
 
 public void checkbox2_clicked1(GCheckbox source, GEvent event) { //_CODE_:scatteredVal:486988:
 
@@ -220,12 +225,12 @@ public void createGUI(){
   Oceans = new GDropList(window2, 145, 58, 90, 100, 4, 10);
   Oceans.setItems(loadStrings("list_849723"), 0);
   Oceans.addEventHandler(this, "dropList1_click1");
-  efficiency = new GCheckbox(window2, 126, 151, 120, 20);
-  efficiency.setIconAlign(GAlign.LEFT, GAlign.MIDDLE);
-  efficiency.setText("Efficient");
-  efficiency.setLocalColorScheme(GCScheme.GOLD_SCHEME);
-  efficiency.setOpaque(false);
-  efficiency.addEventHandler(this, "checkbox1_clicked1");
+  efficiencyCheckbox = new GCheckbox(window2, 126, 151, 120, 20);
+  efficiencyCheckbox.setIconAlign(GAlign.LEFT, GAlign.MIDDLE);
+  efficiencyCheckbox.setText("Efficient");
+  efficiencyCheckbox.setLocalColorScheme(GCScheme.GOLD_SCHEME);
+  efficiencyCheckbox.setOpaque(false);
+  efficiencyCheckbox.addEventHandler(this, "checkbox1_clicked1");
   scatteredVal = new GCheckbox(window2, 127, 176, 120, 20);
   scatteredVal.setIconAlign(GAlign.LEFT, GAlign.MIDDLE);
   scatteredVal.setText("Plastic Scattered");
@@ -253,6 +258,6 @@ GSlider BatteryQuality;
 GLabel label2; 
 GLabel label3; 
 GDropList Oceans; 
-GCheckbox efficiency; 
+GCheckbox efficiencyCheckbox; 
 GCheckbox scatteredVal; 
 GLabel label4; 

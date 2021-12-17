@@ -1,6 +1,6 @@
 float batterylife;
 float storSize;
-  
+boolean efficient = false;  
 class bot{
   float draining;
   float xpos;
@@ -13,6 +13,14 @@ class bot{
   int xs = round(random(-20,20));
   int ys = round(random(-20,20));
   
+  float iPlastic, jPlastic;
+  float iDelta, jDelta;
+  float iBot, jBot;
+  float xSpeed = 1;
+  float ySpeed = 1;
+  float xSpeedReverse = -1;
+  float ySpeedReverse = -1;
+  boolean xMove, yMove;
 
 float rand = 0;
 
@@ -50,12 +58,94 @@ float rand = 0;
     full = 30;
     plastored = 2;
   }
-  void moveBot(){
-    if (storageFull == false){
-      this.detectPlastic();
+  
+  void setRandomTarget() {
+  boolean foundTarget = false;
+  int i=0, j=0;
+
+  while ( !foundTarget ) {
+    i = int(random(0, n));
+    j = int(random(0, n));
+
+    if (pollution[i][j] == false){
+      foundTarget = false;
     }
-    this.storage();
-    this.batteryLife();
+   
+    else {
+      foundTarget = true;
+
+      iPlastic = round(cellSize*i);
+      jPlastic = round(cellSize*j);
+    }
+  }
+}
+  
+  void goodMove(){
+     if (round(xpos) <= round(jPlastic) && round(xpos) >= round(jPlastic)) {
+    xMove = false;
+  }
+
+  if (round(ypos) <= round(iPlastic) && round(ypos) >= round(iPlastic)) {
+    yMove = false;
+  }
+  
+   if (xMove == true) {    
+  BotMovementInXDirection();
+}
+
+if (yMove == true) {
+  BotMovementInYDirection();
+}
+  }
+  
+  void BotMovementInXDirection() {
+
+  iDelta = round(jPlastic) - round(xpos);  
+   
+  if (iDelta>0){
+  xSpeed = xs*1;
+  }
+ 
+  if (iDelta<0){
+ 
+  xSpeed = xs*-1;
+  }
+ 
+  if (iDelta == 0){
+   xSpeed = 0;
+  }
+}
+
+
+
+  void BotMovementInYDirection() {
+    jDelta = round(iPlastic) - round(ypos);
+   
+      if (jDelta<0) {
+
+      ySpeed = ys*-1;
+    }
+   
+    else if (jDelta>0) {
+
+      ySpeed = ys*1;
+    }
+   
+    else {
+      ySpeed = 0;
+    }
+   
+  ypos += ySpeed;
+  }
+  void moveBot(){
+    if (efficient == true){
+      goodMove();
+    }
+    if (storageFull == false){
+      detectPlastic();
+    }
+    storage();
+    batteryLife();
     
     if (xs > 0 && abs(xs) > abs(ys)){
       botpic = loadImage("clenser right-1.png.png");
@@ -70,7 +160,7 @@ float rand = 0;
       botpic = loadImage("clenser back-1.png.png");
     }
   
-  image(botpic, this.xpos, this.ypos);
+  image(botpic, xpos, ypos);
   
   xpos += xs;
   ypos += ys;
@@ -104,8 +194,8 @@ float rand = 0;
 }
 
 void landDetection() {
- int xCell = round(this.xpos/ cellSize);
-  int yCell = round(this.ypos/ cellSize);
+ int xCell = round(xpos/ cellSize);
+  int yCell = round(ypos/ cellSize);
  
   try{if (landBlock[yCell][xCell] == true) {
     
@@ -118,8 +208,8 @@ void landDetection() {
 }
 
 void detectPlastic(){
-  int xCell = round(this.xpos/ cellSize);
-  int yCell = round(this.ypos/ cellSize);
+  int xCell = round(xpos/ cellSize);
+  int yCell = round(ypos/ cellSize);
  // println(xCell,yCell);
    
     
@@ -155,12 +245,10 @@ void batteryLife(){
     full -= draining;
   }
   if (full <= 0){
-    xpos = 1000000000;
-    Clenser.decreaseBot();
-    if (lastBot <= 0){
-      text("All the bots sunk due to no battery, press restart",width/2,height/2);
-      println("All bots ded");
-      noLoop();
+    xpos = 1000000000; //moves bot far away from the screen (out of site, out of mind)
+    this.decreaseBot(); //function that decreases bot count
+    if (lastBot <= 0){ //if the last bot drowns, a message is sent
+      println("All the bots sunk due to no battery, press restart");
     }
   }
 }
@@ -168,18 +256,18 @@ void storage(){
   fill(255,165,0);
   rect(xpos,ypos+40,plastored,3);
   
-  if (plastored >= full){
+  if (plastored >= full){ //if plastic meter full, a boolean is activated that prevents bot from consuming plastic
     storageFull = true;
   }
 }
 
-void increaseBot(){
+void increaseBot(){//allows me to increase botNum globally
   if (this.minBot < 5){
     this.minBot++;
   }
 }
 
-void decreaseBot(){
+void decreaseBot(){ //allows me to lower botNum globally
   if (this.minBot > 1){
     this.minBot--;
 }
