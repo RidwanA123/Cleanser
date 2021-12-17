@@ -96,6 +96,7 @@ int index = Oceans.getSelectedIndex();
 mapChanged = true;
 
 if (index == 1) {
+  efficiencyCheckbox.moveTo(126,500);
   resetLand();
   removePol();
    pollutionChance = PlasticAmount.getValueF();
@@ -105,7 +106,19 @@ if (index == 1) {
   Clenser.resetBot();
 }
 else if (index == 2) {
+  efficiencyCheckbox.moveTo(126,500);
+resetLand();
+  removePol();
+   pollutionChance = PlasticAmount.getValueF();
+  loadIndianOcean();
+  loadPixels();
+  getpix();
+  Clenser.resetBot();
 
+
+
+  
+  Clenser.resetBot();
   resetLand();
   removePol();
   
@@ -116,7 +129,7 @@ else if (index == 2) {
 
 }
 else if (index == 3) {
-  
+    efficiencyCheckbox.moveTo(126,152);
   resetLand();
   removePol();
  
@@ -129,6 +142,7 @@ else if (index == 3) {
 
 }
 else {
+    efficiencyCheckbox.moveTo(126,152);
   resetLand();
   removePol();
    pollutionChance = PlasticAmount.getValueF();
@@ -220,7 +234,7 @@ public void createGUI(){
   Oceans = new GDropList(window2, 145, 58, 90, 100, 4, 10);
   Oceans.setItems(loadStrings("list_849723"), 0);
   Oceans.addEventHandler(this, "dropList1_click1");
-  efficiencyCheckbox = new GCheckbox(window2, 126, 151, 120, 20);
+  efficiencyCheckbox = new GCheckbox(window2, 126, 152, 120, 20);
   efficiencyCheckbox.setIconAlign(GAlign.LEFT, GAlign.MIDDLE);
   efficiencyCheckbox.setText("Efficient");
   efficiencyCheckbox.setLocalColorScheme(GCScheme.GOLD_SCHEME);

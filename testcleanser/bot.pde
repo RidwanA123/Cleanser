@@ -31,7 +31,21 @@ float rand = 0;
    plastored = 2; //initial storage bar length, starts small because not in full capacity
    resetBot();
   }
-  
+  void returnToBase() {
+     for (int i = 0; i<n;i++) {
+      for (int j = 0; j<n;j++) {
+        if (baseBlock[i][j] == true) { //resets all bots in grey base
+          rand = random(1,3);
+          if (rand >= 2){
+          xpos = j*9;
+          ypos = i*9;
+          }
+          
+        }
+      }
+      
+    }
+  }
   void resetBot(){
     
     for (int i = 0; i<n;i++) {
@@ -123,23 +137,31 @@ if (yMove == true) {
   }
   
   if (xpos < 0+padding+20){ //these parameters make sure the robot doesn't leave the edge when inefficient
-   xs = round(random(1,10));
+   returnToBase();
+   randomPlastic();
   
    
  }
  else if (xpos > width-40-padding){
-   xs = round(random(-10,-1));
+  returnToBase();
+   randomPlastic();
 
  }
  else if (ypos < 0+padding+20){
-   ys = round(random(1,10));
+   returnToBase();
+   randomPlastic();
  
  }
  else if (ypos > height-40-padding){
-   ys = round(random(-10,-1));
-  
+   returnToBase();
+   randomPlastic();
+   
   
   }
+ if (round(this.ypos/ cellSize) > 100 || round(this.ypos/ cellSize) > 100 ) {
+    returnToBase();
+   randomPlastic();
+ }
   landDetection();
     }
 }
@@ -147,7 +169,7 @@ void BotMovementInXDirection() { //xs formula for efficient tracking
   int xCell = round(this.xpos/ cellSize);
 
    iDelta = targetY - xCell;  //finds the difference between target, and bot location
-   println(targetX,xCell,iDelta);
+   
    
   if (iDelta>0){
   xpos = xpos + xs;
@@ -168,12 +190,12 @@ void BotMovementInYDirection() { //ys formula for efficient tracking
     jDelta = targetX - yCell;  //finds the difference between target, and bot location
    
   if (jDelta>0){
-  ypos = ypos + ys;
+  ypos = ypos - ys;
   }
  
   if (jDelta<0){
  
- ypos = ypos -ys;
+ ypos = ypos +ys;
   }
  
   if (jDelta == 0||jDelta == -1||jDelta == 1){//if difference is miniscule, then movement is disabled
@@ -210,7 +232,7 @@ void randomPlastic() {
       target[i][j] = true; 
       targetX = i;
       targetY = j;
-      println(i,j);
+     
       
     }
     
@@ -279,8 +301,8 @@ void batteryLife(){
     xpos = 1000000000; // when battery empty, bot goes outside of screen
     Clenser.decreaseBot(); //botcount goes down
     if (lastBot <= 0){
-      text("All the bots sunk due to no battery, press restart",width/2,height/2);
-      println("All bots ded");
+      //text("All the bots sunk due to no battery, press restart",width/2,height/2);
+      //println("All bots ded");
       noLoop();
     }
   }
