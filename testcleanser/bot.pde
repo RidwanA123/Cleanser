@@ -141,7 +141,7 @@ if (yMove == true) {
 void BotMovementInXDirection() {
   int xCell = round(this.xpos/ cellSize);
 
-   iDelta = targetX - xCell;  
+   iDelta = targetY - xCell;  
    println(targetX,xCell,iDelta);
    
   if (iDelta>0){
@@ -153,8 +153,10 @@ void BotMovementInXDirection() {
  xpos = xpos -xs;
   }
  
-  if (iDelta == 0){
+  if (iDelta == 0|| iDelta == -1 || iDelta == 1){
    println("stop");
+   xs = 0;
+   ys = 0;
   }
 }
 void BotMovementInYDirection() {
@@ -219,8 +221,8 @@ void detectPlastic(){
   int i=0, j=0;
 
   while ( !foundTarget ) {
-    i = int(random(0, 100));
-    j = int(random(0, 100));
+    i = int(random(0, 70));
+    j = int(random(0, 70));
 
     if (pollution[i][j]){
       foundTarget = true;
