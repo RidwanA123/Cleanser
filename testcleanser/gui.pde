@@ -107,6 +107,7 @@ if (index == 1) {
 }
 else if (index == 2) {
   efficiencyCheckbox.moveTo(126,500);
+  
 resetLand();
   removePol();
    pollutionChance = PlasticAmount.getValueF();

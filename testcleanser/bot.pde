@@ -74,7 +74,7 @@ float rand = 0;
     }
     this.storage();
     this.batteryLife();
-    if (efficiencyCheckbox.isSelected()) {
+    if (efficiencyCheckbox.isSelected() && (Oceans.getSelectedIndex() != 1 || Oceans.getSelectedIndex() != 2)) {
                                                  //if efficiency is true;
         if (xMove == false && yMove == false){ 
      randomPlastic();     
@@ -191,17 +191,17 @@ void BotMovementInXDirection() {
   int xCell = round(this.xpos/ cellSize);
 
    iDelta = targetY - xCell;  
-   println(targetX,xCell,iDelta);
+  
    
   if (iDelta>0){
   xpos = xpos + xs;
-    botpic = loadImage("clenser right-1.png.png");
+
   }
  
   if (iDelta<0){
  
  xpos = xpos -xs;
- botpic = loadImage("clenser left-1.png.png");
+
   }
  
   if (iDelta == 0||iDelta == -1||iDelta == 1){
@@ -214,14 +214,14 @@ void BotMovementInYDirection() {
     jDelta = targetX - yCell;  
    
   if (jDelta>0){
- botpic = loadImage("clenser front-1.png.png");
-  ypos = ypos + ys;
+
+  ypos = ypos - ys;
   
   }
  
   if (jDelta<0){
- botpic = loadImage("clenser back-1.png.png");
- ypos = ypos -ys;
+
+ ypos = ypos +ys;
  
   }
  
@@ -259,7 +259,7 @@ void randomPlastic() {
       target[i][j] = true; 
       targetX = i;
       targetY = j;
-      println(i,j);
+     
       
     }
     
@@ -328,8 +328,8 @@ void batteryLife(){
     xpos = 1000000000;
     Clenser.decreaseBot();
     if (lastBot <= 0){
-      text("All the bots sunk due to no battery, press restart",width/2,height/2);
-      println("All bots ded");
+      //text("All the bots sunk due to no battery, press restart",width/2,height/2);
+      //println("All bots ded");
       noLoop();
     }
   }
