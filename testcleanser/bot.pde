@@ -61,7 +61,7 @@ float rand = 0;
         if (xMove == false && yMove == false){ 
      randomPlastic();     
      xMove = true;
-     yMove = true;
+     yMove = false;
  }
        if (xs > 0 && abs(xs) > abs(ys)){
       botpic = loadImage("clenser right-1.png.png");
@@ -153,28 +153,28 @@ void BotMovementInXDirection() {
  xpos = xpos -xs;
   }
  
-  if (iDelta == 0|| iDelta == -1 || iDelta == 1){
-   println("stop");
-   xs = 0;
-   ys = 0;
+  if (iDelta == 0||iDelta == -1||iDelta == 1){
+   xMove = false;
+   yMove = true;
   }
 }
 void BotMovementInYDirection() {
- //   int yCell = round(this.ypos/ cellSize);
- //   jDelta = targetY - yCell;  
+    int yCell = round(this.ypos/ cellSize);
+    jDelta = targetX - yCell;  
    
- // if (jDelta>0){
- // ypos = ypos + ys;
- // }
+  if (jDelta>0){
+  ypos = ypos + ys;
+  }
  
- // if (jDelta<0){
+  if (jDelta<0){
  
- //ypos = ypos -ys;
- // }
+ ypos = ypos -ys;
+  }
  
- // if (jDelta == 0){
- //  ypos = 0;
- // }
+  if (jDelta == 0||jDelta == -1||jDelta == 1){
+   xMove = false;
+   yMove = false;
+  }
 }
 void landDetection() {
  int xCell = round(this.xpos/ cellSize);
@@ -185,6 +185,7 @@ void landDetection() {
     xs = xs *-1;
     ys = ys * -1;
      randomPlastic(); 
+   
    
   }}
   catch(Exception e){}
@@ -221,8 +222,8 @@ void detectPlastic(){
   int i=0, j=0;
 
   while ( !foundTarget ) {
-    i = int(random(0, 70));
-    j = int(random(0, 70));
+    i = int(random(0, 100));
+    j = int(random(0, 100));
 
     if (pollution[i][j]){
       foundTarget = true;
