@@ -106,6 +106,28 @@ float rand = 0;
 if (yMove == true) {
   BotMovementInYDirection();
 }
+  if (xpos < 0+padding+20){ //these parameters make sure the robot doesn't leave the edge when inefficient
+   returnToBase();
+   randomPlastic();
+  
+   
+ }
+ else if (xpos > width-40-padding){
+  returnToBase();
+   randomPlastic();
+
+ }
+ else if (ypos < 0+padding+20){                            //if bots are going off page with efficiency on
+   returnToBase();
+   randomPlastic();
+ 
+ }
+ else if (ypos > height-40-padding){
+   returnToBase();
+   randomPlastic();
+   
+  
+  }
  landDetection(); //function to avoid land
   
     }
@@ -136,28 +158,7 @@ if (yMove == true) {
     
   }
   
-  if (xpos < 0+padding+20){ //these parameters make sure the robot doesn't leave the edge when inefficient
-   returnToBase();
-   randomPlastic();
-  
-   
- }
- else if (xpos > width-40-padding){
-  returnToBase();
-   randomPlastic();
 
- }
- else if (ypos < 0+padding+20){
-   returnToBase();
-   randomPlastic();
- 
- }
- else if (ypos > height-40-padding){
-   returnToBase();
-   randomPlastic();
-   
-  
-  }
  if (round(this.ypos/ cellSize) > 100 || round(this.ypos/ cellSize) > 100 ) {
     returnToBase();
    randomPlastic();
