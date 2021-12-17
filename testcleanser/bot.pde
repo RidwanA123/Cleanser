@@ -1,16 +1,16 @@
-float batterylife;
+float batterylife; //globalizes both values to be changed in gui
 float storSize;
   
 class bot{
-  float draining;
-  float xpos;
-  float ypos;
-  float stored;
+  float draining; // variable becomes formula for draining battery at certain speed
+  float xpos; //x position
+  float ypos;//y position
+  float stored;//variable becomes formula for storage capacity
   int minBot = 1; //minimum bot is always 1
-  PImage img;
-  boolean storageFull;
+  PImage img; 
+  boolean storageFull; //if storageFull == true; plastic cant be eaten
 
-  int xs = round(random(-20,20));
+  int xs = round(random(-20,20)); //gives random initial xSpeed and ySpeed
   int ys = round(random(-20,20));
   
 
@@ -19,16 +19,16 @@ float rand = 0;
   float plastored;
   float full;
 
-  //constructor
+  //constructor bot, only has minimum amount of bots as a parameter, used for Cleanser Amount
   bot(int n){
     this.minBot = n;
-    draining = (100-batterylife)/500;
-    stored = (100-storSize)/10;
+    draining = (100-batterylife)/500; //formulas mentioned above^^
+    stored = (100-storSize)/500;
     
-    storageFull = false;
+    storageFull = false;//if storageFull == true; plastic cant be eaten
    
-   full = 30;
-   plastored = 2;
+   full = 30; //the length of a full bar
+   plastored = 2; //initial storage bar length, starts small because not in full capacity
    resetBot();
   }
   
@@ -36,7 +36,7 @@ float rand = 0;
     
     for (int i = 0; i<n;i++) {
       for (int j = 0; j<n;j++) {
-        if (baseBlock[i][j] == true) {
+        if (baseBlock[i][j] == true) { //resets all bots in grey base
           rand = random(1,3);
           if (rand >= 2){
           xpos = j*9;
@@ -47,12 +47,16 @@ float rand = 0;
       }
       
     }
-    full = 30;
+    full = 30; //recalling inital bar lengths, because at base, bots empty storage and charge
     plastored = 2;
+    storageFull = false;
   }
   void moveBot(){
     if (storageFull == false){
-      this.detectPlastic();
+      this.detectPlastic();//detects plastic function becaus storage is not full
+    }
+    else{
+      resetBot();
     }
     this.storage();
     this.batteryLife();

@@ -196,7 +196,7 @@ void cMap() {
           
           
               fill(0, 0, 255);
-
+              boundary[i][j] = true;
               rect(x, y, cellSize, cellSize);
             
           }
@@ -429,6 +429,13 @@ void resetLand() {
  redraw();
 }
 void reset(){
+  for (int i=0;i<n;i++){
+    for(int j =0;j<n;j++){
+      target[i][j] = false;
+    }
+  }
+  targetX = 0;
+  targetY = 0;
   Clenser = new bot(lastBot);
   other1 = new bot(lastBot);
   other2 = new bot(lastBot);
