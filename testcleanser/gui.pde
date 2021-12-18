@@ -95,9 +95,20 @@ public void dropList1_click1(GDropList source, GEvent event) { //_CODE_:Oceans:8
 int index = Oceans.getSelectedIndex(); //each part of the droplist has an index
 
 mapChanged = true; //map change becomes true
-
+//It will sometimes load another map while loading the main so it can reset the map better
 if (index == 1) { //parameters change if index 1 is selected
-  efficiencyCheckbox.moveTo(126,500);
+  
+    
+  Clenser.resetBot();
+  resetLand();              
+  removePol();
+  
+  loadArcticOcean();
+  loadPixels();
+  getpix();
+  Clenser.resetBot();
+  
+ 
   resetLand();
   removePol();
    pollutionChance = PlasticAmount.getValueF();
@@ -105,15 +116,16 @@ if (index == 1) { //parameters change if index 1 is selected
   loadPixels();
   getpix();
   Clenser.resetBot();
+
 }
 else if (index == 2) {//parameters change if index 2 is selected
-  efficiencyCheckbox.moveTo(126,500);
+
   
 resetLand();
   removePol();
    pollutionChance = PlasticAmount.getValueF();
   loadIndianOcean();
-  loadPixels();
+  loadPixels();                //to not mess up land;
   getpix();
   Clenser.resetBot();
 
@@ -129,9 +141,10 @@ resetLand();
   getpix();
   Clenser.resetBot();
 
+
 }
 else if (index == 3) {//parameters change if index 3 is selected
-    efficiencyCheckbox.moveTo(126,152);
+   
   resetLand();
   removePol();
  
@@ -141,10 +154,11 @@ else if (index == 3) {//parameters change if index 3 is selected
   getpix();
 
   Clenser.resetBot();
+  
 
 }
 else {//parameters change if index 0 is selected
-    efficiencyCheckbox.moveTo(126,152);
+   
   resetLand();
   removePol();
    pollutionChance = PlasticAmount.getValueF();
@@ -152,6 +166,7 @@ else {//parameters change if index 0 is selected
   loadPixels();
   getpix();
   Clenser.resetBot();
+
 
 }
 

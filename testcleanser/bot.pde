@@ -31,7 +31,7 @@ float rand = 0;
    plastored = 2; //initial storage bar length, starts small because not in full capacity
    resetBot();
   }
-  void sendBackToBase(){   //any bots that wander off get sent back to base
+  void sendBackToBase(){   //any bots that wander off get sent back to base but thier battery and storage amount don't get altered
    for (int i = 0; i<n;i++) {
       for (int j = 0; j<n;j++) {
         if (baseBlock[i][j] == true) { //resets all bots in grey base
@@ -105,29 +105,31 @@ float rand = 0;
 if (yMove == true) {
   BotMovementInYDirection();
 }
-  if (xpos < 0+padding+20){
+  if (xpos < -30){
   sendBackToBase();
-  targetX = 0;
+  targetX = 0;                //these statements sends the bot back to base if it wanders off the map
    targetY = 0;
    randomPlastic();
  }
- else if (xpos > width-40-padding){
+ else if (xpos > width+30){
    xs = round(random(-10,-1));
    sendBackToBase();
     targetX = 0;
    targetY = 0;
    randomPlastic();
+  
 
  }
- else if (ypos < 0+padding+20){
+ else if (ypos < -30){
    ys = round(random(1,10));
      sendBackToBase();
     targetX = 0;
    targetY = 0;
    randomPlastic();
+
  
  }
- else if (ypos > height-40-padding){
+ else if (ypos > height-40+35){
    ys = round(random(-10,-1));
    sendBackToBase();
     targetX = 0;
@@ -145,7 +147,7 @@ if (yMove == true) {
       botpic = loadImage("clenser right-1.png.png");
     }
     else if (xs < 0 && abs(xs) > abs(ys)){
-      botpic = loadImage("clenser left-1.png.png");
+      botpic = loadImage("clenser left-1.png.png");          //pictures to load 
     }
     else if (ys > 0 && abs(ys) > abs(xs)){
       botpic = loadImage("clenser front-1.png.png");
@@ -172,7 +174,7 @@ if (yMove == true) {
    
  }
  else if (xpos > width-40-padding){
-   xs = round(random(-10,-1));
+   xs = round(random(-10,-1));                  //Bots will just bounce off borders if unefficient
 
  }
  else if (ypos < 0+padding+20){
@@ -271,7 +273,7 @@ void randomPlastic() {
 }
 void detectPlastic(){
   int xCell = round(this.xpos/ cellSize);
-  int yCell = round(this.ypos/ cellSize);
+  int yCell = round(this.ypos/ cellSize);                //picks a random plastic in the grid when efficiency is turned on
     boolean foundTarget = false;
   int i=0, j=0;
 
@@ -297,7 +299,7 @@ void detectPlastic(){
       if (pollution[yCell-1][xCell-1] == true || pollution[yCell][xCell] == true || pollution[yCell+1][xCell+1] == true){
         
         pollution[yCell-1][xCell-1] = false;
-        pollution[yCell][xCell] = false;
+        pollution[yCell][xCell] = false;          //if the bot within a radius goes over a plastic, delete it
         pollution[yCell+1][xCell+1] = false;
            fill(0, 120, 255);                          //ocean
               
@@ -322,7 +324,7 @@ void batteryLife(){
   int s = second(); //Tracks time from 0s-59s
   
   if (s%2 == 0){
-    full -= draining;
+    full -= draining;                  
   }
   if (full <= 0){
     xpos = 1000000000;
