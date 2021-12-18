@@ -5,9 +5,9 @@
  * designer and care should be taken when editing this file.
  * Only add/edit code inside the event handlers i.e. only
  * use lines between the matching comment tags. e.g.
-
+ 
  void myBtnEvents(GButton button) { //_CODE_:button1:12356:
-     // It is safe to enter your event code here  
+ // It is safe to enter your event code here  
  } //_CODE_:button1:12356:
  
  * Do not rename this tab!
@@ -20,19 +20,17 @@ synchronized public void win_draw1(PApplet appc, GWinData data) { //_CODE_:windo
 
 public void pauseButtonPressed(GButton source, GEvent event) { //_CODE_:pauseButton:933206:
 
-  if (buttonPressed == false){ //if when we pressed the button, it had not yet pressed
-   
+  if (buttonPressed == false) { //if when we pressed the button, it had not yet pressed
+
     noLoop(); //pauses 
     buttonPressed = true;  //record that we pressed it
     pauseButton.setText("Resume"); //button changes to resume
-  }
+  } 
+  else {
 
-  else{
-   
     loop(); //resumes
     buttonPressed = false; //record the button has returned to its previous value
     pauseButton.setText("Pause"); //button changes to pause
-   
   }
 } //_CODE_:pauseButton:933206:
 
@@ -40,50 +38,44 @@ public void ResetButtonPressed(GButton source, GEvent event) { //_CODE_:Reset:60
   loop(); //reloop incase someone paused then restarted
   reset();  //reset function in main
   //restart();
-
 } //_CODE_:Reset:608023:
 
 public void PlasticAmountClick(GSlider source, GEvent event) { //_CODE_:PlasticAmount:528106:
-    removePol(); //removes initial pollution
+  removePol(); //removes initial pollution
   pollutionChance = PlasticAmount.getValueF(); //changes pollution chance
-   loop();
+  loop();
   reset(); //resetting changes plastic amount. Done to discourage people from changing it while bot is making progress
-
-
 } //_CODE_:PlasticAmount:528106:
 
 public void slider_change2(GSlider source, GEvent event) { //_CODE_:CleanserStorage:536613:
   storSize = CleanserStorage.getValueF(); //storage size of the bot (refer to bot tab)
-
 } //_CODE_:CleanserStorage:536613:
 
 public void textfield1_change1(GTextField source, GEvent event) { //_CODE_:NumberOfCleanser:985657:
-   botNum = int(NumberOfCleanser.getText()); //changes amount of bots 
-   
-   if (botNum == 0){ //makes sure you can never have anything less than 1
-     botNum = 1;
-   }
-   else if (botNum > 5){ //makes sure you can never have anything more than 5
-     botNum = 5;
-   }
-   
-   if (botNum < lastBot){
-     int count = lastBot - botNum;
-     
-     for (int i = 0; i < count; i++){  //if botNum is lower than lastBot, function in bot tab is called
-       Clenser.decreaseBot();
-     }
-   }
-   
-   else if (botNum > lastBot){        //if botNum is higher than lastBot, function in bot tab is called
-     int count = botNum - lastBot;
-     
-     for (int i = 0; i < count; i++){
-       Clenser.increaseBot();
-     }
-   }
-   lastBot = botNum;            //at the end, LastBot = botNum allows program to remove bots should someone put a lower value then their previous one
-   
+  botNum = int(NumberOfCleanser.getText()); //changes amount of bots 
+
+  if (botNum == 0) { //makes sure you can never have anything less than 1
+    botNum = 1;
+  } 
+  else if (botNum > 5) { //makes sure you can never have anything more than 5
+    botNum = 5;
+  }
+
+  if (botNum < lastBot) {
+    int count = lastBot - botNum;
+
+    for (int i = 0; i < count; i++) {  //if botNum is lower than lastBot, function in bot tab is called
+      Clenser.decreaseBot();
+    }
+  } 
+  else if (botNum > lastBot) {        //if botNum is higher than lastBot, function in bot tab is called
+    int count = botNum - lastBot;
+
+    for (int i = 0; i < count; i++) {
+      Clenser.increaseBot();
+    }
+  }
+  lastBot = botNum;            //at the end, LastBot = botNum allows program to remove bots should someone put a lower value then their previous one
 } //_CODE_:NumberOfCleanser:985657:
 
 public void slider1_change1(GSlider source, GEvent event) { //_CODE_:BatteryQuality:496630:
@@ -92,105 +84,93 @@ public void slider1_change1(GSlider source, GEvent event) { //_CODE_:BatteryQual
 } //_CODE_:BatteryQuality:496630:
 
 public void dropList1_click1(GDropList source, GEvent event) { //_CODE_:Oceans:849723: //allows for the change of map
-int index = Oceans.getSelectedIndex(); //each part of the droplist has an index
+  int index = Oceans.getSelectedIndex(); //each part of the droplist has an index
 
-mapChanged = true; //map change becomes true
-//It will sometimes load another map while loading the main so it can reset the map better
-if (index == 1) { //parameters change if index 1 is selected
-  
-    
-  Clenser.resetBot();
-  resetLand();              
-  removePol();
-  
-  loadArcticOcean();
-  loadPixels();
-  getpix();
-  Clenser.resetBot();
-  
- 
-  resetLand();
-  removePol();
-   pollutionChance = PlasticAmount.getValueF();
-  loadIndianOcean();
-  loadPixels();
-  getpix();
-  Clenser.resetBot();
-
-}
-else if (index == 2) {//parameters change if index 2 is selected
-
-  
-resetLand();
-  removePol();
-   pollutionChance = PlasticAmount.getValueF();
-  loadIndianOcean();
-  loadPixels();                //to not mess up land;
-  getpix();
-  Clenser.resetBot();
+  mapChanged = true; //map change becomes true
+  //It will sometimes load another map while loading the main so it can reset the map better
+  if (index == 1) { //parameters change if index 1 is selected
 
 
+    Clenser.resetBot();
+    resetLand();              
+    removePol();
 
-  
-  Clenser.resetBot();
-  resetLand();
-  removePol();
-  
-  loadArcticOcean();
-  loadPixels();
-  getpix();
-  Clenser.resetBot();
+    loadArcticOcean();
+    loadPixels();
+    getpix();
+    Clenser.resetBot();
 
 
-}
-else if (index == 3) {//parameters change if index 3 is selected
-   
-  resetLand();
-  removePol();
- 
-   pollutionChance = PlasticAmount.getValueF();
-  loadAtlanticOcean();
-  loadPixels();
-  getpix();
-
-  Clenser.resetBot();
-  
-
-}
-else {//parameters change if index 0 is selected
-   
-  resetLand();
-  removePol();
-   pollutionChance = PlasticAmount.getValueF();
-  loadPacificOcean();
-  loadPixels();
-  getpix();
-  Clenser.resetBot();
+    resetLand();
+    removePol();
+    pollutionChance = PlasticAmount.getValueF();
+    loadIndianOcean();
+    loadPixels();
+    getpix();
+    Clenser.resetBot();
+  } 
+  else if (index == 2) {//parameters change if index 2 is selected
 
 
-}
+    resetLand();
+    removePol();
+    pollutionChance = PlasticAmount.getValueF();
+    loadIndianOcean();
+    loadPixels();                //to not mess up land;
+    getpix();
+    Clenser.resetBot();
 
 
+
+
+    Clenser.resetBot();
+    resetLand();
+    removePol();
+
+    loadArcticOcean();
+    loadPixels();
+    getpix();
+    Clenser.resetBot();
+  } 
+  else if (index == 3) {//parameters change if index 3 is selected
+
+    resetLand();
+    removePol();
+
+    pollutionChance = PlasticAmount.getValueF();
+    loadAtlanticOcean();
+    loadPixels();
+    getpix();
+
+    Clenser.resetBot();
+  } 
+  else {//parameters change if index 0 is selected
+
+    resetLand();
+    removePol();
+    pollutionChance = PlasticAmount.getValueF();
+    loadPacificOcean();
+    loadPixels();
+    getpix();
+    Clenser.resetBot();
+  }
 } //_CODE_:Oceans:849723:
 
 public void checkbox1_clicked1(GCheckbox source, GEvent event) { //_CODE_:efficiencyCheckbox:302654:
-   reset();
+  reset();
 } //_CODE_:efficiencyCheckbox:302654:
 
 public void checkbox2_clicked1(GCheckbox source, GEvent event) { //_CODE_:scatteredVal:486988:
 
   removePol();
   plasticGeneration();
-  
-
-  
 } //_CODE_:scatteredVal:486988:
 
 
 
 // Create all the GUI controls. 
 // autogenerated do not edit
-public void createGUI(){
+public void createGUI() {
   G4P.messagesEnabled(false);
   G4P.setGlobalColorScheme(GCScheme.BLUE_SCHEME);
   G4P.setMouseOverEnabled(false);
